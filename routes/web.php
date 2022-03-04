@@ -45,6 +45,8 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 Route::middleware(['auth', 'roles:user|admin'])->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/setlist/create', [SetlistsController::class, 'create'])->name('admin.setlists.create');
+    Route::get('/admin/setlist/self', [SetlistsController::class, 'self'])->name('admin.setlists.self');
+    Route::get('/admin/contract/self', [ContractsController::class, 'self'])->name('admin.contracts.self');
 });
 
 
