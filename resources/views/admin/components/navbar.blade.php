@@ -28,8 +28,9 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="#">Meu perfil</a>
-                        <form action="{{route('logout')}}">
-                            <a class="dropdown-item" href="#">Logout</a>
+                        <form id="logout" action="{{route('logout')}}" method="POST">
+                            @csrf
+                            <a type="submit" id="btn-logout" class="dropdown-item" href="#">Logout</a>
                         </form>
                     </div>
                 </li>
@@ -37,3 +38,10 @@
         </div>
     </div>
 </nav>
+@push('scripts')
+<script type="text/javascript">
+    $('#btn-logout').on('click', function() {
+        $('#logout').submit();
+    });
+</script>
+@endpush

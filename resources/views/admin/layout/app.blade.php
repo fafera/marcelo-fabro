@@ -18,10 +18,14 @@
         <div class="main-panel">
             @include('admin.components.navbar')
             <div class="content">
+                @if (session()->has('message'))
+                    <div class="alert alert-success">
+                        {{ session('message') }}
+                    </div>
+                @endif
                 @yield('content')
             </div>
         </div>
-        
     </div>
 </body>
 @include('admin.layout.js')

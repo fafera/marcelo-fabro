@@ -4220,5 +4220,7 @@ License - nucleoapp.com/license/
   .card-timeline .timeline .timeline-panel {
     width: 38%;
     padding: 15px; } }
-
+  .table-responsive {
+    overflow: hidden;
+  }
 /*# sourceMappingURL=paper-dashboard.css.map */

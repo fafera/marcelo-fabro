@@ -33,9 +33,7 @@
             </div>
             <div class="offset-xl-1 col-xl-6 offset-lg-1 col-lg-10 offset-md-1 col-md-10 col-sm-12 col-12 mt30">
                 <livewire:quote-form/>
-            </div>
-
-            
+            </div>            
         </div>
     </div>
 </section>

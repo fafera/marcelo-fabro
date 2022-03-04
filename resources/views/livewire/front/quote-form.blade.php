@@ -8,7 +8,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                 <div class="form-group service-form-group">
                     <label class="control-label sr-only" for="name"></label>
-                    <input wire:model="quote.name" id="name" name="name" type="text" placeholder="Seu nome" class="form-control" required>
+                    <input wire:model.lazy="quote.name" id="name" name="name" type="text" placeholder="Seu nome" class="form-control" required>
                     <div class="form-icon"><i class="fa fa-user"></i></div>
                 </div>
             </div>
@@ -16,7 +16,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                 <div class="form-group service-form-group">
                     <label class="control-label sr-only" for="email"></label>
-                    <input wire:model="quote.email" id="email" name="email" type="email" placeholder="Email" class="form-control" required>
+                    <input wire:model.lazy="quote.email" id="email" name="email" type="email" placeholder="Email" class="form-control" required>
                     <div class="form-icon"><i class="fa fa-envelope"></i></div>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                 <div class="form-group service-form-group">
                     <label class="control-label sr-only" for="phone"></label>
-                    <input wire:model="quote.phone" id="phone" data-mask="(00) 0000-0000" name="phone" type="text" placeholder="WhatsApp" class="form-control" required >
+                    <input wire:model.lazy="quote.phone" id="phone" data-mask="(00) 0000-0000" name="phone" type="text" placeholder="WhatsApp" class="form-control" required >
                     <div class="form-icon"><i class="fa fa-phone"></i></div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 ">
                 <div class="form-group service-form-group">
                     <label class="control-label sr-only" for="date"></label>
-                    <input wire:model="quote.date" id="date" name="date" data-mask="00/00/0000" type="text" placeholder="Data" class="form-control" required >
+                    <input wire:model.lazy="quote.date" id="date" name="date" data-mask="00/00/0000" type="text" placeholder="Data" class="form-control" required >
                     {{-- <div class="form-icon"><i class="fa fa-calendar"></i></div> --}}
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 ">
                 <div class="form-group service-form-group">
                     <label class="control-label sr-only" for="time"></label>
-                    <input wire:model="quote.time" id="time" data-mask="00:00" name="time" type="time" step="1800" placeholder="Horário" class="form-control" required>
+                    <input wire:model.defer="quote.time" id="time" data-mask="00:00" name="time" type="time" step="1800" placeholder="Horário" class="form-control" required>
                     {{-- <div class="form-icon"><i class="fa fa-clock"></i></div> --}}
                 </div>
             </div>
@@ -48,22 +48,20 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                 <div class="form-group service-form-group">
                     <label class="control-label sr-only" for="place"></label>
-                    <input wire:model="quote.place" id="place" name="place" type="text" placeholder="Local" class="form-control" required>
+                    <input wire:model.lazy="quote.place" id="place" name="place" type="text" placeholder="Local" class="form-control" required>
                     <div class="form-icon"><i class="fa fa-pin"></i></div>
                 </div>
             </div>
             
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                 <div class="form-group">
-                    <label class="control-label sr-only" for="project"></label>
+                    <label class="control-label sr-only" for="project_id"></label>
                     <div class="select">
-                        <select wire:model="quote.project" id="project" name="project" class="form-control" required>
+                        <select wire:model="quote.project_id" id="project_id" name="project" class="form-control" required>
                             <option value="">Selecione o projeto</option>
-                            <option value="1">Wedding Duo</option>
-                            <option value="2">Wedding Quartet</option>
-                            <option value="3">Lounge Quartet</option>
-                            <option value="4">Jazz Express</option>
-                            <option value="5">Outro...</option>
+                            @foreach($projects as $project)
+                                <option value="{{$project->id}}">{{$project->title}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -96,14 +94,13 @@
 @push('scripts')
 <script type="text/javascript">
     document.addEventListener('livewire:load', function () {
-        
         $('#date').on('change', function (e) {
             @this.set('quote.date', e.target.value);
         });
         $('#time').on('change', function (e) {
             @this.set('quote.time', e.target.value);
         });
-});  
+    });  
 </script>
 <script type="text/javascript">
     $.datetimepicker.setLocale('pt-BR');

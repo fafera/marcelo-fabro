@@ -17,7 +17,6 @@
 </head>
 <body id="page-top">
     @include('front.components.nav')
-    @include('front.components.header')
     @yield('content')
     @include('front.components.js')
     @stack('scripts')

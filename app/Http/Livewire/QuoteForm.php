@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Quote;
+use App\Models\Project;
 use Livewire\Component;
 use App\Helpers\DateHelper;
 
@@ -19,14 +20,15 @@ class QuoteForm extends Component
         'quote.date' => 'required',
         'quote.time' => 'required',
         'quote.place' => 'required',
-        'quote.project' => 'required',
+        'quote.project_id' => 'required',
         'quote.message' => 'sometimes'
     ];
     protected $messages = [
         '*' => 'Confira os dados do formulário e tente novamente.',
     ];
     public function mount() {
-        $this->quote = new Quote();
+        
+        $this->quote = Quote::make();
     }
     private function getSuccessMessage() {
         return $this->successMessage =  "Seu orçamento foi solicitado com sucesso! Aguarde o contato via WhatsApp";
@@ -50,6 +52,6 @@ class QuoteForm extends Component
     }
     public function render()
     {
-        return view('livewire.front.quote-form');
+        return view('livewire.front.quote-form', ['projects' => Project::all()]);
     }
 }

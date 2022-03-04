@@ -21,7 +21,7 @@ class CreateQuotesTable extends Migration
             $table->date('date');
             $table->time('time');
             $table->string('place');
-            $table->foreignId('project')->constrained('projects');
+            $table->foreignId('project_id')->constrained('projects');
             $table->text('message')->nullable();
             $table->timestamps();
         });
