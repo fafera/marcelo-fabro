@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 class Sidebar extends Component
 {
     private $modules;
-    private $slugPosition = 2;
+    private $slugPosition = 3;
 
     public Function mount() {
         if(auth()->user()) {
