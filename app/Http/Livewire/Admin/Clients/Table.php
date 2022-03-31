@@ -73,6 +73,9 @@ class Table extends DataTableComponent
                 })->asHtml(),
             Column::make('Repertório', 'quote')
                 ->format(function($quote) {
+                    if($quote == null) {
+                        return "<span class='badge bg-danger'>Aguardando orçamento</span>";
+                    }
                     $project = $quote->project;
                     $setlist = $quote->setlist;
                     if(!$setlist->isEmpty()) {
