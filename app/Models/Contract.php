@@ -26,5 +26,20 @@ class Contract extends Model
     public function quote() {
         return $this->belongsTo(Quote::class, 'quote_id');
     }
+    public function payments() {
+        return $this->hasMany(Payment::class, 'contract_id');
+    }
+    public function getisPaymentDoneAttribute() {
+        if(!$this->payments->isEmpty()) {
+            return $this->payments->sum('value') >= $this->value ? true : false ;
+        }
+        return false;
+    }
+    public function getRemainingAmountAttribute() {
+        if(!$this->payments->isEmpty()) {
+            return $this->value - $this->payments->sum('value');
+        }
+        return $this->value;
+    }
     
 }

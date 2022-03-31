@@ -17,9 +17,9 @@
         <livewire:admin.sidebar>
         <div class="main-panel">
             @include('admin.components.navbar')
-            <div class="content">
+            <div class="content" style="background-color:#f4f3ef;">
                 @if (session()->has('message'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-{{session('status') ? session('status') : 'success'}}">
                         {{ session('message') }}
                     </div>
                 @endif

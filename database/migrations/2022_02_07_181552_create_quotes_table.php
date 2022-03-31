@@ -21,7 +21,10 @@ class CreateQuotesTable extends Migration
             $table->date('date');
             $table->time('time');
             $table->string('place');
+            $table->string('city');
             $table->foreignId('project_id')->constrained('projects');
+            $table->boolean('with_singer')->default(false);
+            $table->foreignId('client_id')->nullable()->constrained('clients')->onDelete('CASCADE');
             $table->text('message')->nullable();
             $table->timestamps();
         });

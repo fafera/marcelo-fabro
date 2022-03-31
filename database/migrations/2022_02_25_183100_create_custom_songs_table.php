@@ -17,8 +17,7 @@ class CreateCustomSongsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('performer');
-            $table->foreignId('moment_id')->constrained('moments');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('moment_id')->constrained('moments')->onDelete('CASCADE');
             $table->timestamps();
         });
     }

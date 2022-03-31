@@ -12,7 +12,7 @@
     <div class="sidebar-wrapper">
         <ul class="nav">
             @foreach ($modules as $module)
-                <li @isset($module['active']) {{ 'class=active'}} @endif>
+                <li @isset($module['active']) {{ 'class=active'}} @endif id="{{$module['id']}}">
                     <a href="{{ $module['route'] }}">
                         <i class="nc-icon {{ $module['icon'] }}"></i>
                         <p>{{ $module['text'] }}</p>

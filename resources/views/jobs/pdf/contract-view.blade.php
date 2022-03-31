@@ -10,6 +10,19 @@
             width: 70px;
         }
         p {text-align: justify;}
+        .page_break { page-break-before: always; }
+        .signature {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            max-width: 150px;
+        }
+        .signature_right {
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+            max-width: 150px;
+        }
     </style>
 </head>
 <body style="padding: 30px">
@@ -31,9 +44,7 @@
         {{ $time }} no {{ $place }} em {{ $city }}. O serviço deverá ser executado em três momentos
         específicos: 
     </p>
-    <p>
-        <span class="nbsp"> </span> {!! $custom_text !!}
-    </p>
+    {!! $custom_text !!}
     <p>
         <b>CLÁUSULA SEGUNDA</b> – Constituem obrigações da <b>CONTRATANTE</b>:
         <ol type="a">
@@ -95,5 +106,8 @@
         vias de igual teor e forma na presença de testemunhas, para que surta seus
         jurídicos e legais efeitos.
     </p>
+    {{-- <div class="page_break"></div> --}}
+    <img class="signature" src="{{$_SERVER["DOCUMENT_ROOT"]."/img/assinatura.png"}}"/>
+    <img class="signature_right" src="{{$_SERVER["DOCUMENT_ROOT"]."/img/assinatura_contratante.png"}}"/>
 </body>
 </html>

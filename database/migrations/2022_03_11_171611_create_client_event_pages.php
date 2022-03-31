@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserClientTable extends Migration
+class CreateClientEventPages extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateUserClientTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_client', function (Blueprint $table) {
+        Schema::create('client_event_pages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('client_id')->constrained('clients');
+            $table->string('slug');
+            $table->foreignId('client_id')->constrained('clients')->onDelete('CASCADE');
+            $table->foreignId('quote_id')->constrained('quotes')->onDelete('CASCADE');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateUserClientTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_client');
+        Schema::dropIfExists('client_event_pages');
     }
 }

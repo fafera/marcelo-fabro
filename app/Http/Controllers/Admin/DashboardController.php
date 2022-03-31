@@ -13,14 +13,15 @@ class DashboardController extends Controller
 
     public function index() {
         $info = collect();
-        if(auth()->user()->role === "admin") {
+        if(auth()->user()) {
             $info->quotes = Quote::all()->count();
             $info->clients = Client::all()->count();
             $info->songs = Song::all()->count();
-        } else {
-            $info->contract = auth()->user()->contract;
-            $info->setlist = auth()->user()->quote->setlist->first();
-        }
+        } 
+        //else {
+        //     $info->contract = auth()->user()->contract;
+        //     $info->setlist = auth()->user()->quote->setlist->first();
+        // }
 
         return view('admin.pages.dashboard', ['info' => $info]);
     }

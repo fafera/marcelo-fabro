@@ -3,14 +3,7 @@
         <h5 class="card-title">Detalhes do Cliente</h5>
     </div>
     <div class="card-body">
-        @if($this->client->quote !== null)
-        <div class="row">
-            <div class="col-md-12 mb-2">
-                <a href="{{route('admin.quotes.show', $this->client->quote->first()->id)}}" class="btn btn-right btn-primary float-right">Acessar orçamento do cliente</a>
-            </div>
-        </div>
-        @endif
-        <form wire:submit.prevent="update">
+        <form>
             @csrf
             <div class="row">
                 <div class="col-md-12 pr-1">
@@ -19,7 +12,6 @@
                         <input type="text" wire:model="client.name" class="form-control" placeholder="Cliente">
                     </div>
                 </div>
-                 
             </div>
             <div class="row">
                 <div class="col-md-4 pr-1">
@@ -42,8 +34,13 @@
                 </div>  
             </div>
             <div class="row">
+                @if($update)
+                    <div class="update ml-auto mr-auto">
+                        <button onclick="confirm('Você tem certeza?') || event.stopImmediatePropagation();"  wire:click.prevent="delete" class="btn btn-danger btn-round">Deletar cliente</button>
+                    </div>
+                @endif
                 <div class="update ml-auto mr-auto">
-                    <button wire:click="update" type="submit" class="btn btn-primary btn-round">Salvar alterações</button>
+                    <button wire:click.prevent="store" type="submit" class="btn btn-primary btn-round">Salvar alterações</button>
                 </div>
             </div>
         </form>

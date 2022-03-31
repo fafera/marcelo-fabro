@@ -24,7 +24,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                 <div class="form-group service-form-group">
                     <label class="control-label sr-only" for="phone"></label>
-                    <input wire:model.lazy="quote.phone" id="phone" data-mask="(00) 0000-0000" name="phone" type="text" placeholder="WhatsApp" class="form-control" required >
+                    <input wire:model.lazy="quote.phone" id="phone" data-mask="(00)0-0000-0000" name="phone" type="text" placeholder="WhatsApp" class="form-control" required >
                     <div class="form-icon"><i class="fa fa-phone"></i></div>
                 </div>
             </div>
@@ -32,8 +32,8 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 ">
                 <div class="form-group service-form-group">
                     <label class="control-label sr-only" for="date"></label>
-                    <input wire:model.lazy="quote.date" id="date" name="date" data-mask="00/00/0000" type="text" placeholder="Data" class="form-control" required >
-                    {{-- <div class="form-icon"><i class="fa fa-calendar"></i></div> --}}
+                    <input wire:model.defer="quote.date" id="date" name="date" data-mask="00/00/0000" type="text" placeholder="Data" class="form-control" required >
+                    <div class="form-icon"><i class="fa fa-calendar"></i></div>
                 </div>
             </div>
             
@@ -45,15 +45,21 @@
                 </div>
             </div>
             
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
                 <div class="form-group service-form-group">
                     <label class="control-label sr-only" for="place"></label>
                     <input wire:model.lazy="quote.place" id="place" name="place" type="text" placeholder="Local" class="form-control" required>
-                    <div class="form-icon"><i class="fa fa-pin"></i></div>
+                    <div class="form-icon"><i class="fa fa-location-pin"></i></div>
                 </div>
             </div>
-            
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
+                <div class="form-group service-form-group">
+                    <label class="control-label sr-only" for="city"></label>
+                    <input wire:model.lazy="quote.city" id="city" name="city" type="text" placeholder="Cidade" class="form-control" required>
+                    <div class="form-icon"><i class="fa fa-city"></i></div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
                 <div class="form-group">
                     <label class="control-label sr-only" for="project_id"></label>
                     <div class="select">
@@ -65,7 +71,16 @@
                         </select>
                     </div>
                 </div>
-            </div>
+            </div>  
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="checkbox" wire:model="quote.with_singer" id="with_singer">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Formação com vocalista
+                    </label>
+                </div>
+            </div>  
+            
             
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                 <div class="form-group">

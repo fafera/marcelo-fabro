@@ -1,7 +1,7 @@
 <div>
     <div class="card-header">
         <h5 class="card-title">Gerar Contrato</h5>
-
+        <small> Atenção: antes de gerar o contrato, confira se todos os dados do cliente e orçamento estão completos.</small>
     </div>
     <div class="card-body">
         @if (session()->has('message'))
@@ -69,7 +69,8 @@
             })
             .catch(error => {
                 console.error(error);
-            });
+            })
+            .dataProcessor.writer.lineBreakChars = '<br>';
         
     </script>
 @endpush

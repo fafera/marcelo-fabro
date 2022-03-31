@@ -18,6 +18,7 @@ class Generator extends Component
     public Contract $contract;
     public Client $client;
     public Quote $quote;
+    public $daysBeforeLimit = 5;
 
     public $rules = [
         'value' => 'required',
@@ -54,7 +55,7 @@ class Generator extends Component
     {
         $this->contract = Contract::make();
         $this->quote = $quote;
-        $this->client = $quote->client->first();
+        $this->client = $quote->client;
         $this->quoteInfoString = $quote->info_string;
     }
     private function generatePDF()
@@ -67,7 +68,7 @@ class Generator extends Component
             'date' => $this->quote->date,
             'time' => $this->quote->time,
             'place' => $this->quote->place,
-            'city' => 'Farroupilha',
+            'city' => $this->quote->city,
             'value' => $this->value,
             'value_in_full' => $this->contract->value_in_full,
             'custom_text' => $this->getCustomText(),
@@ -79,12 +80,12 @@ class Generator extends Component
     }
     private function getPaymentLimitDate()
     {
-        $date = Carbon::parse(DateHelper::convertToDateFormat($this->quote->date))->subMonth()->format('Y-m-d');
+        $date = Carbon::parse(DateHelper::convertToDateFormat($this->quote->date))->subDays($this->daysBeforeLimit)->format('Y-m-d');
         return DateHelper::covertToBRDateFormat($date);
     }
     private function getCustomText() {
-        $text = str_replace('<p>', '', $this->contract->custom_text);
-        return str_replace('</p>', '', $text);
+        $text = str_replace('<p>', '<span class="nbsp"></span>', $this->contract->custom_text);
+        return str_replace('</p>', '<br>', $text);
     }
     public function render()
     {

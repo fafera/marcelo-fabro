@@ -8,20 +8,13 @@ use App\Http\Controllers\Controller;
 
 class SetlistsController extends Controller
 {
-    public function create() {
-        return view('admin.pages.setlists.create');
+    public function create($id) {
+        return view('admin.pages.setlists.create', ['quote' => Quote::findOrFail($id)]);
     }
     public function index() {
         return view('admin.pages.setlists.index');
     }
-    public function self() {
-        if(auth()->user()->quote->setlist->first() !== null) {
-            return view('admin.pages.setlists.show', ['quote' => auth()->user()->quote]);
-        }
-        return redirect()->route('admin.setlists.create');
-    }
     public function show($quoteId) {
-        $quote = Quote::findOrFail($quoteId);
-        return view('admin.pages.setlists.show', ['quote' => $quote]);
+        return view('admin.pages.setlists.show', ['quote' => Quote::findOrFail($quoteId)]);
     }
 }

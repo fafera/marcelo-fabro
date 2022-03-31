@@ -4,20 +4,53 @@ namespace App\Http\Livewire\Admin\Songs;
 
 use App\Models\Song;
 use Livewire\Component;
+use App\Models\Songbook;
+use App\Models\SongSongbook;
+use Illuminate\Support\Facades\DB;
 
 class Form extends Component
 {
 
     public Song $song;
-    public $update = false;
+    public $update = false, $songbooks, $checkboxes;
+    public array $songbooks_relation = [];
     public $rules = [
         'song.title' => 'required',
-        'song.performer' => 'required'
+        'song.performer' => 'required',
+        'songbooks_relation' => 'sometimes'
     ];
     public function store() {
         $this->validate();
         $this->song->save();
+        $this->storeSongbooksRelations();
         $this->setReturn();
+    }
+    private function storeSongbooksRelations() {
+        foreach($this->songbooks_relation as $key => $relation) {
+            if($relation) {
+                $this->checkNewRelation($key);
+            } else {
+                $this->checkOutdatedRelation($key);
+            }
+        }
+    }
+    private function checkNewRelation($id) {
+        $relation = $this->getRelation($id);
+        if($relation == null) {
+            SongSongbook::create([
+                'song_id' => $this->song->id,
+                'songbook_id' => $id
+            ]);
+        }
+    }
+    private function checkOutdatedRelation($id) {
+        $relation = $this->getRelation($id);
+        if($relation) {
+            $relation->delete();
+        }
+    }
+    private function getRelation($id) {
+        return SongSongbook::where('song_id', $this->song->id)->where('songbook_id', $id)->first();
     }
     private function setReturn() {
         if($this->update) {
@@ -29,19 +62,33 @@ class Form extends Component
 
     }
     public function delete() {
+        if(!$this->song->setlists->isEmpty()) {
+            session()->flash('message', 'Ops! Esta música pertence a algum repertório');
+            session()->flash('status', 'danger');
+            return redirect()->route('admin.songs.show', $this->song->id);
+        }
         $this->song->delete();
         session()->flash('message', 'Música excluída com sucesso!');
         return redirect()->route('admin.songs');
     }
     public function mount($song = null) {
-        return isset($song) ?  $this->getSong($song) : $this->makeSong();
+        $this->songbooks = Songbook::all();
+        if(isset($song)) {
+            return $this->getSong($song);   
+        }
+        return $this->makeSong();
     }
     private function getSong($song) {
         $this->song = $song;
+        $ids = $this->song->songbooks->pluck('id')->toArray();
+        $this->songbooks_relation = array_fill_keys($ids, true);
         $this->update = true;
     }
     private function makeSong() {
+        $ids = $this->songbooks->pluck('id')->toArray();
+        $this->songbooks_relation = array_fill_keys($ids, false);
         return $this->song = Song::make();
+        
     }
     public function render()
     {

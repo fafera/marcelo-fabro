@@ -15,8 +15,8 @@ class CreateContractsTable extends Migration
     {
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id')->constrained('clients');
-            $table->foreignId('quote_id')->constrained('quotes');
+            $table->foreignId('client_id')->constrained('clients')->onDelete('CASCADE');
+            $table->foreignId('quote_id')->constrained('quotes')->onDelete('CASCADE');
             $table->text('custom_text');
             $table->decimal('value', 8, 2);
             $table->string('value_in_full');

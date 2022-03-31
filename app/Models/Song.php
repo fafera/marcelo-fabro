@@ -14,4 +14,10 @@ class Song extends Model
     public function getFullStringAttribute() {
         return $this->title. ' - '.$this->performer;
     } 
+    public function songbooks() {
+        return $this->belongsToMany(Songbook::class, 'song_songbook', 'song_id', 'songbook_id');
+    }
+    public function setlists() {
+        return $this->hasMany(Setlist::class, 'song_id');
+    }
 }

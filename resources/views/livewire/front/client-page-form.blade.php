@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit.prevent="getConfirmation">
+    <form wire:submit.prevent="store">
         @csrf
         <input type="hidden" wire:model="quote_id">
         <div class="service-form">
@@ -109,11 +109,11 @@
             </div>
         </div>
     </form>
-    @livewire('front.client-page-confirm-modal')
-    @livewire('front.client-page-store-modal')
+    {{-- @livewire('front.client-page-confirm-modal')
+    @livewire('front.client-page-store-modal') --}}
 </div>
 @push('scripts')
-    <script type="text/javascript"> 
+    {{-- <script type="text/javascript"> 
         window.addEventListener('openConfirmationModal', event => {
             $("#client-page-confirm-modal").modal('show');
         })
@@ -127,5 +127,5 @@
         window.addEventListener('closeStoreModal', event => {
             $("#client-page-store-modal").modal('hide');
         })
-</script>
+    </script> --}}
 @endpush

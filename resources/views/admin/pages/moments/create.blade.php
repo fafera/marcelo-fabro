@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="card mb-4">
                 <div class="table-responsive p-3">
-                    <livewire:admin.setlists.create/>
+                    <livewire:admin.moments.form/>
                 </div>
             </div>
         </div>

@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class CustomSong extends Model
 {
-    protected $fillable = ['title', 'performer', 'moment_id', 'user_id'];
+    protected $fillable = ['title', 'performer', 'moment_id'];
     use HasFactory;
+    public function getFullStringAttribute() {
+        return $this->title. " - ".$this->performer;
+    }
 }

@@ -16,7 +16,7 @@ class CreateClientPagesTable extends Migration
         Schema::create('client_pages', function (Blueprint $table) {
             $table->id();
             $table->string('slug');
-            $table->foreignId('quote_id')->constrained('quotes');
+            $table->foreignId('quote_id')->constrained('quotes')->onDelete('CASCADE');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -1,0 +1,4 @@
+.form-check input[type="checkbox"] {
+    opacity: 100;
+    visibility: visible; 
+}

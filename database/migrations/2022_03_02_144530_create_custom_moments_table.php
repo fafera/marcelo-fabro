@@ -17,7 +17,7 @@ class CreateCustomMomentsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->foreignId('quote_id')->constrained('quotes');
+            $table->foreignId('quote_id')->constrained('quotes')->onDelete('CASCADE');
             $table->timestamps();
         });
     }

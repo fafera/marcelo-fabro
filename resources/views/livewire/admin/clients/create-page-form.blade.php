@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-12 pr-1">
                     <div class="form-group">
-                        <label>Orçamento</label>
+                        <label>Orçamento:</label>
                         <select disabled id="quote" name="quote" wire:model="quote" class="form-control">
                             <option value=''>Selecione o orçamento</option>
                             @foreach($quotes as $quote)
@@ -21,8 +21,10 @@
             <div class="row">
                 <div class="col-md-12 pr-1">
                     <div class="form-group">
-                        <label>Slug</label>
-                        <input type="text" id="slug" wire:model="slug" class="form-control" placeholder="/fulano-de-tal">
+                        <label>Slug (parte da URL que aparecerá no browser):</label>
+                        
+                        <input type="text" id="slug" wire:model="slug" class="form-control" placeholder="casamento-fulano-de-tal">
+                        <small>Atenção: não utilizar acentos, caracteres especiais e espaços em branco. </small>
                     </div>
                 </div>
             </div>
@@ -34,3 +36,21 @@
         </form>
     </div>
 </div>
+@push('scripts')
+<script type="text/javascript">
+$(function() {
+    $('#slug').on('keypress', function(e) {
+        if (e.which == 32){
+            return false;
+        }
+        var regex = new RegExp("^[a-zA-Z0-9\-]+$");
+        var key = String.fromCharCode(!e.charCode ? event.which : e.charCode);
+        if (!regex.test(key)) {
+            e.preventDefault();
+            return false;
+        }
+    });
+});
+</script>
+    
+@endpush

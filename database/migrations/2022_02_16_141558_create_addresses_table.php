@@ -22,7 +22,7 @@ class CreateAddressesTable extends Migration
             $table->string('district');
             $table->string('number');
             $table->string('complement')->nullable();
-            $table->foreignId('client_id')->constrained('clients');
+            $table->foreignId('client_id')->constrained('clients')->onDelete('CASCADE');
             $table->timestamps();
         });
     }

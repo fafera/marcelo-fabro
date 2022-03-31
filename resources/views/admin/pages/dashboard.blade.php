@@ -1,10 +1,10 @@
 @extends('admin.layout.app')
 @section('content')
-    @if(auth()->user()->role === "admin")
+    @if(auth()->user())
     <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats">
-                <div class="card-body ">
+                <div class="card-body" style="cursor:pointer;" data-href={{route('admin.quotes')}}>
                     <div class="row">
                         <div class="col-5 col-md-4">
                             <div class="icon-big text-center icon-warning">
@@ -24,7 +24,7 @@
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats">
-                <div class="card-body ">
+                <div class="card-body" style="cursor:pointer;" data-href={{route('admin.clients')}}>
                     <div class="row">
                         <div class="col-5 col-md-4">
                             <div class="icon-big text-center icon-success">
@@ -44,7 +44,7 @@
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats">
-                <div class="card-body ">
+                <div class="card-body" style="cursor:pointer;" data-href={{route('admin.songs')}}>
                     <div class="row">
                         <div class="col-5 col-md-4">
                             <div class="icon-big text-center icon-primary">
@@ -63,29 +63,13 @@
             </div>
         </div>
     </div>
-    @else
-        <div class="row">
-            <div class="col-lg-12">
-                <h5 class="mb-4">Bem-vindo, {{auth()->user()->name}}</h5>
-                <div class="mb-4">
-                    <h6>Sobre o contrato:</h6>
-                    @if($info->contract !== null)
-                        <p>Seu contrato já foi gerado e vocẽ pode acessá-lo clicando aqui: <a href="{{route('admin.contracts.self')}}"> ver contrato </a></p>
-                    @else
-                        <p>Parece que seu contrato ainda não foi gerado. Aguarde.</p>
-                    @endif
-                </div>
-                <div class="mb-4">
-                    <h6>Sobre o repertório</h6>
-                    @if($info->setlist !== null)
-                        <p>Boa! Você já definiu o repertório. Agora é só aguardar o momento tão aguardado.</p>
-                        <p>Se quiser conferir as músicas, é só clicar aqui: <a href="{{route('admin.setlists.self')}}"> ver músicas do repertório </a></p>
-                    @else
-                        <p>Você ainda não definiu seu repertório! <a href="{{route('admin.setlists.self')}}"> Clique aqui </a> para definí-lo agora mesmo.</p>
-                    @endif
-                </div>
-            </div>
-        </div>
     @endif
-
 @endsection
+@push('scripts')
+<script type="text/javascript">
+    $('.card-body').on('click', function () {
+        window.location.href = $(this).data('href');
+    })
+</script>
+    
+@endpush

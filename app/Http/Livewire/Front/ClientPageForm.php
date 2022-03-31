@@ -7,8 +7,9 @@ use App\Models\Quote;
 use App\Models\Client;
 use App\Models\Address;
 use Livewire\Component;
-use Illuminate\Support\Facades\DB;
+use App\Models\ClientEventPage;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class ClientPageForm extends Component
@@ -33,54 +34,28 @@ class ClientPageForm extends Component
     {
         return view('livewire.front.client-page-form');
     }
-    public function getConfirmation() {
-        $this->validate();
-        $this->dispatchBrowserEvent('openConfirmationModal');
-    }
-    public function confirm() {
-        $this->dispatchBrowserEvent('closeConfirmationModal');
-        $this->dispatchBrowserEvent('openStoreModal');
+    public function store() {
+        $this->storeClient();
+        $this->quote->client_id = $this->client->id;
+        $this->quote->save();
+        $this->createEventPage();
+        $this->deletePage();
+        return redirect()->route('information.index', $this->quote->eventPage->slug);
     }
     protected function deletePage() {
         $this->page->delete();
     }
-    public function storeUser($password) {
-        $user = User::create([
-            'name' => $this->name,
-            'email' => $this->quote->email,
-            'password' => $password,
-            'role' => $this->role
-        ]);
-        $user->save();
-        $this->storeClient($user->id);
-    }
-   
-    protected function storeClient($userId) {
+    protected function storeClient() {
         $this->client = Client::create([
             'name' => $this->name,
             'cpf' => $this->cpf,
             'phone' => $this->quote->phone,
             'email' => $this->quote->email,
-            'user_id' => $userId,
-            'quote_id' => $this->quote->id
-        ]);
-        $this->client->save();
-        $this->storeAddress();
-        //$this->storeClientQuote();
-       
-        
-    }
-    protected function storeClientQuote(){
-        DB::table('client_quote')->insert([
-            'client_id' => $this->client->id,
-            'quote_id' => $this->quote->id,
-            'created_at' =>  \Carbon\Carbon::now(), 
-            'updated_at' => \Carbon\Carbon::now(), 
         ]);
         $this->storeAddress();
     }
     protected function storeAddress() {
-        $address = Address::create([
+        Address::create([
             'client_id' => $this->client->id, 
             'cep' => $this->cep,
             'street' => $this->street,
@@ -90,11 +65,13 @@ class ClientPageForm extends Component
             'number' => $this->number,
             'complement' => $this->complement
         ]);
-        $this->allStored();
     }   
-    private function allStored() {
-        $this->deletePage();
-        return redirect()->to('/login');
+    protected function createEventPage() {
+        ClientEventPage::create([
+            'quote_id' => $this->quote->id,
+            'client_id' => $this->client->id,
+            'slug' => $this->page->slug
+        ]);
     }
     public function getCepInfo() {
         if($this->verifyCep() === true) { 

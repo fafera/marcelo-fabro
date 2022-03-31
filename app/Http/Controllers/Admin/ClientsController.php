@@ -13,4 +13,7 @@ class ClientsController extends Controller
     public function show($id) {
         return view('admin.pages.clients.show', ['client' => Client::findOrFail($id) ]);
     }
+    public function create() {
+        return view('admin.pages.clients.create');
+    }
 }

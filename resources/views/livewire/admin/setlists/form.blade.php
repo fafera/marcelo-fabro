@@ -28,8 +28,8 @@
                                 @if ($results[$moment->id]->first() !== null)
                                     @foreach ($results[$moment->id] as $result)
                                         <li class="list-group-item"><a href="#"
-                                                wire:click="setSong({{ $result->id }}, {{ $moment->id }})">{{ $result->title }}
-                                                - {{ $result->performer }}</a></li>
+                                                wire:click="setSong({{ $result['id'] }}, {{ $moment->id }})">{{ $result['title'] }}
+                                                - {{ $result['performer'] }}</a></li>
                                     @endforeach
                                 @else
                                     <li class="list-group-item"><a wire:click="showCustomSongModal({{$moment->id}})" href="#">Não encontrou?
@@ -44,17 +44,14 @@
             <div class="row">
                 <div class="col-md-12 pr-1">
                     <div class="form-check">
-                        <label class="form-check-label">
-                            <input id="custom_moment_checkbox" class="form-check-input" type="checkbox" value="">
-                            Quero informar um momento que não está na lista
-                            <span class="form-check-sign">
-                                <span class="check"></span>
-                            </span>
-                        </label>
+                        <div class="form-check form-check-inline mr-5" >
+                            <input class="form-check-input" @if(isset($custom_moment)) {{'checked'}} @endif type="checkbox" id="custom_moment_checkbox">
+                            <label class="form-check-label" for="custom_moment_checkbox">Quero informar um momento que não está na lista</label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div id="custom_moment_container" wire:ignore.self class="row" style="display:none;">
+            <div id="custom_moment_container" wire:ignore.self class="row" style="@if(!isset($custom_moment)) {{'display:none'}} @endif">
                 <div class="col-md-12 pr-1">
                     <div class="form-group">
                         <label>Título</label>
@@ -71,7 +68,7 @@
             </div>
             <div class="row">
                 <div class="update ml-auto mr-auto">
-                    <button wire:click.prevent="store" type="submit" class="btn btn-success btn-round">Criar repertório</button>
+                    <button wire:click.prevent="store" type="submit" class="btn btn-success btn-round">Salvar repertório</button>
                 </div>
             </div>
         </form>
@@ -83,14 +80,20 @@
         window.addEventListener('showCustomSongModal', event => {
             $("#custom-song-modal").modal('show');
             Livewire.emit('setMomentId', event.detail.moment);
-        })
+        });
         window.addEventListener('closeCustomSongModal', event => {
+            $("#custom-song-modal").find('form').trigger('reset');
             $("#custom-song-modal").modal('hide');
-        })
+        });
+        // window.addEventListener('checkCustomMomentCheckbox', event => {
+        //     $('.wrapper').html('arara');
+        // })
         $('#custom_moment_checkbox').on('change', function() {
             if(this.checked) {
+                @this.custom_moment_check = true;
                 return $('#custom_moment_container').show();
             }
+            @this.custom_moment_check = false;
             return $('#custom_moment_container').hide();
         });
     </script>

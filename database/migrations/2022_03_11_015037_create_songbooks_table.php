@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTableClients extends Migration
+class CreateSongbooksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class AlterTableClients extends Migration
      */
     public function up()
     {
-        Schema::table('clients', function(Blueprint $table) {
-            $table->foreignId('user_id')->constrained('users');
-        }); 
+        Schema::create('songbooks', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->boolean('singable')->default(true);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -25,8 +28,6 @@ class AlterTableClients extends Migration
      */
     public function down()
     {
-        Schema::table('clients', function(Blueprint $table) {
-            $table->dropColumn('user_id');
-        }); 
+        Schema::dropIfExists('songbooks');
     }
 }

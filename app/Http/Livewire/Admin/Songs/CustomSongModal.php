@@ -31,9 +31,12 @@ class CustomSongModal extends Component
             'title' => $this->title,
             'performer' => $this->performer,
             'moment_id' => $this->moment_id,
-            'user_id' => Auth::id()
         ]);
         $customSong->save();
+        $this->resetFields();
         $this->emit('setCustomSong', $customSong);
+    }
+    private function resetFields() {
+        $this->reset(['title', 'performer', 'moment_id']);
     }
 }

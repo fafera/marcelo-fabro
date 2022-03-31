@@ -22,9 +22,23 @@
                 </div>  
             </div>
             <div class="row">
+                <div class="col-md-12 pr-1">
+                    <div class="form-check">
+                        <label>Repertório pertencente</label>
+                        <div class="clearfix"></div>
+                        @foreach($songbooks as $songbook)
+                            <div class="form-check form-check-inline mr-5" wire:key="{{$songbook->id}}" >
+                                <input wire:model="songbooks_relation.{{$songbook->id}}" class="form-check-input" type="checkbox" id="{{$songbook->id}}">
+                                <label class="form-check-label" for="{{$songbook->id}}">{{$songbook->title}}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>  
+            </div>
+            <div class="row">
                 @if($update)
                     <div class="update ml-auto mr-auto">
-                        <button wire:click.prevent="delete" class="btn btn-danger btn-round">Deletar música</button>
+                        <button onclick="confirm('Você tem certeza?') || event.stopImmediatePropagation();"  wire:click.prevent="delete" class="btn btn-danger btn-round">Deletar música</button>
                     </div>
                 @endif
                 <div class="update ml-auto mr-auto">
