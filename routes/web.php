@@ -12,9 +12,9 @@ use App\Http\Controllers\Admin\SetlistsController;
 use App\Http\Controllers\Admin\ContractsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SongbooksController;
-use App\Http\Livewire\Admin\Clients\EventPageModal;
 use App\Http\Controllers\Admin\ClientPageController;
 use App\Http\Controllers\Admin\PaymentsController;
+use App\Http\Controllers\Debug;
 use App\Http\Controllers\Front\InformationController;
 
 /*
@@ -27,6 +27,7 @@ use App\Http\Controllers\Front\InformationController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/debug', [Debug::class, 'index']);
 Auth::routes();
 Route::get('/', [BaseController::class, 'index'])->name('front.index');
 Route::post('/', [BaseController::class, 'request'])->name('front.quote.request');
