@@ -107,7 +107,7 @@
         jurídicos e legais efeitos.
     </p>
     {{-- <div class="page_break"></div> --}}
-    <img class="signature" src="{{$_SERVER["DOCUMENT_ROOT"]."/marcel-fabro/img/assinatura.png"}}"/>
-    <img class="signature_right" src="{{$_SERVER["DOCUMENT_ROOT"]."/marcel-fabro/img/assinatura_contratante.png"}}"/>
+    <img class="signature" src="{{asset('img/assinatura.png')}}"/>
+    <img class="signature_right" src="{{asset('img/assinatura_contratante.png')}}"/>
 </body>
 </html>
