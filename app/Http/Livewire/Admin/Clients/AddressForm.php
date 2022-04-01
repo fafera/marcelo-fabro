@@ -42,7 +42,7 @@ class AddressForm extends Component
     public function getCepInfo() {
         if($this->verifyCep() === true) { 
             try {
-                $request = Http::get('https://viacep.com.br/ws/'.$this->address->cep.'/json/unicode');
+                $request = Http::get('https://viacep.com.br/ws/'.$this->address->cep.'/json');
             } catch (\Throwable $th) {
                 throw new \Exception("Ops! Algo deu errado. Tente de novo.");
             }
