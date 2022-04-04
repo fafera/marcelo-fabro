@@ -31,6 +31,7 @@
 
 <body style="padding: 30px">
     <div style="text-align: center">
+        {{-- <img src="{{$_SERVER['DOCUMENT_ROOT']}}/img/logo-preto.png" alt="" class="logo"> --}}
         <img src="{{asset('img/logo-preto.png')}}" alt="" class="logo">
     </div>      
     {{-- <img class="logo" src="{{asset('img/logo-preto.png')}}"/> --}}

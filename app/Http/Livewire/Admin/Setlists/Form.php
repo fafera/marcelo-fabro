@@ -103,7 +103,9 @@ class Form extends Component
         $songbook->each(function ($item){
             array_push($this->songs, $item->songs->all());
         });
+        
         $this->songs = collect(Arr::flatten($this->songs));
+        dd($this->songs->unique('id'));
     }
     public function store()
     {
