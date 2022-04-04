@@ -105,7 +105,7 @@ class Form extends Component
         });
         
         $this->songs = collect(Arr::flatten($this->songs));
-        dd($this->songs->unique('id'));
+        $this->songs = $this->songs->unique('id');
     }
     public function store()
     {
