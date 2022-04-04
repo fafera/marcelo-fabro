@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Admin\Setlists;
 
+use PDF;
+use Exception;
 use App\Models\Song;
 use App\Models\Quote;
 use App\Models\Moment;
@@ -11,7 +13,7 @@ use App\Models\Songbook;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use App\Models\CustomMoment;
-use Exception;
+use Illuminate\Support\Facades\Storage;
 
 class Form extends Component
 {
@@ -46,6 +48,22 @@ class Form extends Component
             $this->bindCustomMoment();
         }
         
+    }
+    public function exportPdf() {
+        $data = $this->buildPdfData();
+        $pdf = PDF::loadView('jobs.pdf.songbook', $data)->setPaper('a4', 'landscape');
+        $filename = 'quote_'.$this->quote->id.'_songbook.pdf';
+        Storage::disk('public')->put('pdf/'.$filename, $pdf->output());
+        $this->dispatchBrowserEvent('showPdf', ['route' => route('pdf.stream', $filename)]);
+
+        //return redirect()->route('pdf.stream', $filename);
+    }
+    private function buildPdfData() {
+        $data = [
+            'title' => "Repertório de ".$this->quote->project->title,
+            'songs' => $this->songs,
+        ];
+        return $data;
     }
     private function verifySetlistCustomization() {
         if($this->quote->project->has_songbook !== 1) {

@@ -1,3 +1,4 @@
+
 <div>
     <div class="card-header">
         <h5 class="card-title">{{$title}}</h5>
@@ -14,7 +15,7 @@
                 <div class="col-md-12 pr-1">
                     <div class="form-group">
                         <label>Título</label>
-                        <input type="text" wire:model="songbook.title" class="form-control">
+                        <input type="text" wire:model.lazy="songbook.title" class="form-control">
                     </div>
                 </div>
             </div>
@@ -23,7 +24,7 @@
                     <div class="form-check">
                             <div class="form-check form-check-inline mr-5">
                                 <label class="form-check-label" for="singable">Possui vocal</label>
-                                <input id="singable" wire:model="songbook.singable" class="form-check-input" type="checkbox">
+                                <input id="singable" wire:model.lazy="songbook.singable" class="form-check-input" type="checkbox">
                             </div>
                         </label>
                     </div>
@@ -43,6 +44,7 @@
     </div>
 </div>
 @if($update)
+
 <hr>
 <div class="row">
     <div class="col-lg-12">

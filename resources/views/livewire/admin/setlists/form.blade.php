@@ -1,6 +1,7 @@
 <div>
     <div class="card-header">
         <h5 class="card-title">Definir repertório</h5>
+        <small>Se quiser ter acesso ao repertório completo, <a href="#" wire:click="exportPdf">clique aqui</a> para baixá-lo.</small>
         @error('search.*')
             <div class="alert alert-danger">
                 {{ $message }}
@@ -77,6 +78,9 @@
 </div>
 @push('scripts')
     <script type="text/javascript">
+        window.addEventListener('showPdf', event => {
+            window.open(event.detail.route, '_blank');
+        });
         window.addEventListener('showCustomSongModal', event => {
             $("#custom-song-modal").modal('show');
             Livewire.emit('setMomentId', event.detail.moment);

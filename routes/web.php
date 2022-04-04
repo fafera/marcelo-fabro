@@ -1,20 +1,22 @@
 <?php
 
+use App\Http\Controllers\Debug;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PDFController;
+use App\Http\Livewire\Admin\Songbooks\Export;
 use App\Http\Controllers\Front\BaseController;
 use App\Http\Controllers\Admin\SongsController;
 use App\Http\Controllers\Admin\QuotesController;
 use App\Http\Controllers\Admin\ClientsController;
 use App\Http\Controllers\Admin\MomentsController;
+use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\ProjectsController;
 use App\Http\Controllers\Admin\SetlistsController;
 use App\Http\Controllers\Admin\ContractsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SongbooksController;
 use App\Http\Controllers\Admin\ClientPageController;
-use App\Http\Controllers\Admin\PaymentsController;
-use App\Http\Controllers\Debug;
 use App\Http\Controllers\Front\InformationController;
 
 /*
@@ -31,6 +33,7 @@ Route::get('/debug', [Debug::class, 'index']);
 Auth::routes();
 Route::get('/', [BaseController::class, 'index'])->name('front.index');
 Route::post('/', [BaseController::class, 'request'])->name('front.quote.request');
+Route::get('/pdf/stream/{file_path}', [PDFController::class, 'stream'])->name('pdf.stream');
 Route::get('/criar-minha-pagina/{slug}', [ClientPageController::class, 'generate'])->name('front.create-page');
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -64,6 +67,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/songbooks', [SongbooksController::class, 'index'])->name('admin.songbooks');
     Route::get('/admin/songbooks/create', [SongbooksController::class, 'create'])->name('admin.songbooks.create');
     Route::get('/admin/songbooks/{id}', [SongbooksController::class, 'show'])->name('admin.songbooks.show');
+    Route::get('/admin/songbooks/export/{id}', Export::class)->name('admin.songbooks.export');
     
 });
 Route::prefix('informacoes/{slug}')->group(function() {
