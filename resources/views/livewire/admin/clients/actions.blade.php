@@ -19,7 +19,9 @@
             
         </div>
     </div>
-    <livewire:admin.clients.event-page-modal :client="$client" />
+    @if($client->quote != null)
+        <livewire:admin.clients.event-page-modal :client="$client" />
+    @endif
     @if($client->contract != null)
         <livewire:admin.payments.modal :contract="$client->contract" />
     @endif

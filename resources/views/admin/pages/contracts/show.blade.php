@@ -1,5 +1,7 @@
 @extends('admin.layout.app')
 @section('content')
+@isset($contract)
+
     <div class="row">
         <div class="col-lg-12">
             <div class="card mb-4">
@@ -22,6 +24,17 @@
             </div>
         </div>
     </div>
+@else
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <span>Ops! Parece que seu contrato ainda não foi gerado. Aguarde.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+@endisset
 @endsection
 @push('scripts')
 <script type="text/javascript">

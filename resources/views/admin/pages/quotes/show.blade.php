@@ -5,10 +5,13 @@
         @if($quote->client !== null) 
             <div class="row">
                 <div class="col-md-12 mb-2">
+                    <a id="btn-rider" href="#"
+                        class="btn btn-right btn-success float-right">Rider de palco</a>
                     <a href="{{ route('admin.clients.show', $quote->client->id) }}"
                         class="btn btn-right btn-success float-right">Dados do Cliente</a>
                 </div>
             </div>
+            <livewire:admin.riders.modal :quote="$quote"/>
         @elseif($quote->clientPage !== null)
             <div class="row">
                 <div class="col-md-12 mb-2">
@@ -36,3 +39,11 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script type="text/javascript">
+        $('#btn-rider').on('click', function(event){
+            event.preventDefault();
+            $('#rider-modal').modal('show');
+        });
+    </script>
+@endpush

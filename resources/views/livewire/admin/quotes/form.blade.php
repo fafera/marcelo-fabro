@@ -3,24 +3,24 @@
         <h5 class="card-title">Detalhes do Orçamento</h5>
     </div>
     <div class="card-body">
-        @if (session()->has('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
-            </div>
-        @endif
+        @error('*')
+        <div class="alert alert-danger">
+            {{ $message }}
+        </div>
+    @enderror
         <form>
             @csrf
             <div class="row">
                 <div class="col-md-8 pr-1">
                     <div class="form-group">
                         <label>Cliente (nome informado na hora de solicitar orçamento)</label>
-                        <input type="text" wire:model="quote.name" class="form-control" placeholder="Cliente">
+                        <input type="text" disabled wire:model.lazy="quote.name" class="form-control" placeholder="Cliente">
                     </div>
                 </div>
                 <div class="col-md-4 pr-1">
                     <div class="form-group">
                         <label>Telefone</label>
-                        <input type="text" id="phone" data-mask="(00)00000-0000" wire:model="quote.phone"
+                        <input type="text" id="phone" data-mask="(00)00000-0000" wire:model.lazy="quote.phone"
                             class="form-control" placeholder="Telefone">
                     </div>
                 </div>
@@ -30,27 +30,27 @@
                 <div class="col-md-2 pr-1">
                     <div class="form-group">
                         <label>Data</label>
-                        <input type="text" id="date" data-mask="00/00/0000" wire:model="quote.date"
+                        <input type="text" id="date" data-mask="00/00/0000" wire:model.lazy="quote.date"
                             class="form-control" placeholder="Data">
                     </div>
                 </div>
                 <div class="col-md-2 pr-1">
                     <div class="form-group">
                         <label>Horário</label>
-                        <input type="text" id="time" data-mask="00:00" wire:model="quote.time" class="form-control"
+                        <input type="text" id="time" data-mask="00:00" wire:model.lazy="quote.time" class="form-control"
                             placeholder="Horário">
                     </div>
                 </div>
                 <div class="col-md-4 pr-1">
                     <div class="form-group">
                         <label>Local</label>
-                        <input type="text" class="form-control" wire:model="quote.place" placeholder="Local">
+                        <input type="text" class="form-control" wire:model.lazy="quote.place" placeholder="Local">
                     </div>
                 </div>
                 <div class="col-md-4 pr-1">
                     <div class="form-group">
                         <label>Cidade</label>
-                        <input type="text" class="form-control" wire:model="quote.city" placeholder="Cidade">
+                        <input type="text" class="form-control" wire:model.lazy="quote.city" placeholder="Cidade">
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                 <div class="col-md-3 pr-1">
                     <div class="form-group">
                         <label>Projeto</label>
-                        <select id="project" name="project" wire:model="quote.project_id" class="form-control">
+                        <select id="project" name="project" wire:model.lazy="quote.project_id" class="form-control">
                             <option value=''>Selecione o projeto</option>
                             @foreach ($projects as $project)
                                 <option value={{ $project->id }}>{{ $project->title }}</option>
@@ -80,7 +80,7 @@
                 <div class="col-md-7 pr-1">
                     <div class="form-group">
                         <label>Observações</label>
-                        <input type="textarea" wire:model="quote.message" class="form-control"
+                        <input type="textarea" wire:model.lazy="quote.message" class="form-control"
                             placeholder="Observações">
                     </div>
                 </div>

@@ -1,14 +1,19 @@
 <div>
     <div class="card-header">
-        <h5 class="card-title">Detalhes do Cliente</h5>
+        <h5 class="card-title">Dados Cadastrais</h5>
     </div>
     <div class="card-body">
+        @error('*')
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
+        @enderror
         <form>
             @csrf
             <div class="row">
                 <div class="col-md-12 pr-1">
                     <div class="form-group">
-                        <label>Cliente</label>
+                        <label>Nome</label>
                         <input type="text" wire:model.lazy="client.name" class="form-control" placeholder="Cliente">
                     </div>
                 </div>
@@ -34,7 +39,7 @@
                 </div>  
             </div>
             <div class="row">
-                @if($update)
+                @if($update && auth()->user())
                     <div class="update ml-auto mr-auto">
                         <button onclick="confirm('Você tem certeza?') || event.stopImmediatePropagation();"  wire:click.prevent="delete" class="btn btn-danger btn-round">Deletar cliente</button>
                     </div>

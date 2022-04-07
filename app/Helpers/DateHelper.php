@@ -6,8 +6,11 @@ use Carbon\Carbon;
 class DateHelper {
     public static function convertToDateFormat($date)
     {
-        $date = Carbon::createFromFormat('d/m/Y', $date);
-        return Carbon::parse($date)->format('Y-m-d');
+        if(str_contains($date, '/')) {
+            $date = Carbon::createFromFormat('d/m/Y', $date);
+            return Carbon::parse($date)->format('Y-m-d');
+        }
+        return $date;
     }
     public static function covertToBRDateFormat($date) {
         if(strpos($date, '/') === false) {

@@ -11,6 +11,7 @@ class EventPageModal extends Component
     public $listeners = ['show'];
     public Client $client;
     public ClientEventPage $eventPage;
+    public $clipboard = false;
 
     public $rules = [
         'eventPage.slug' => 'required',
@@ -20,6 +21,7 @@ class EventPageModal extends Component
         $this->client = $client;
         if($this->client->eventPage !== null) {
            $this->eventPage = $this->client->eventPage;
+           $this->clipboard = route('information.index', $this->client->eventPage->slug);
         } else {
             $this->eventPage = ClientEventPage::make();
             $this->eventPage->client_id = $this->client->id;

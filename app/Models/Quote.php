@@ -57,4 +57,7 @@ class Quote extends Model
     public function customMoment() {
         return $this->hasOne(CustomMoment::class, 'quote_id');
     }
+    public function rider() {
+        return $this->hasOne(Rider::class, 'quote_id');
+    }
 }

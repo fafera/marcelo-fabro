@@ -63,7 +63,7 @@
                 <div class="form-group">
                     <label class="control-label sr-only" for="project_id"></label>
                     <div class="select">
-                        <select wire:model="quote.project_id" id="project_id" name="project" class="form-control" required>
+                        <select wire:model.lazy="quote.project_id" id="project_id" name="project" class="form-control" required>
                             <option value="">Selecione o projeto</option>
                             @foreach($projects as $project)
                                 <option value="{{$project->id}}">{{$project->title}}</option>
@@ -74,7 +74,7 @@
             </div>  
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
                 <div class="form-check mt-3">
-                    <input class="form-check-input" type="checkbox" wire:model="quote.with_singer" id="with_singer">
+                    <input class="form-check-input" type="checkbox" wire:model.lazy="quote.with_singer" id="with_singer">
                     <label class="form-check-label" for="flexCheckDefault">
                         Formação com vocalista
                     </label>
@@ -85,7 +85,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                 <div class="form-group">
                     <label class="control-label sr-only" for="message"></label>
-                    <textarea class="form-control" wire:model="quote.message" id="message" name="message" rows="3"
+                    <textarea class="form-control" wire:model.lazy="quote.message" id="message" name="message" rows="3"
                         placeholder="Informações adicionais"></textarea>
                 </div>
             </div>

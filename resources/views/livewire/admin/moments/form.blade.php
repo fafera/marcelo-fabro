@@ -9,7 +9,7 @@
                 <div class="col-md-12 pr-1">
                     <div class="form-group">
                         <label>Título</label>
-                        <input type="text" wire:model="moment.title" class="form-control" placeholder="Título">
+                        <input type="text" wire:model.lazy="moment.title" class="form-control" placeholder="Título">
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <div class="col-md-12 pr-1">
                     <div class="form-group">
                         <label>Ordem</label>
-                        <input type="number" wire:model="moment.order" class="form-control" placeholder="Ordem">  
+                        <input type="number" wire:model.lazy="moment.order" class="form-control" placeholder="Ordem">  
                     </div>
                 </div>  
             </div>

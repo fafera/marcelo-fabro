@@ -4,8 +4,7 @@ namespace App\Helpers;
 
 class FinancialHelper {
     public static function formatToBRL($value) {
-        
-        return number_format(floatval($value), 2, ',', '.');   
+        return "R$".number_format(floatval($value), 2, ',', '.');   
     }
     public static function formatBRLtoDecimal($value) {
         if(strpos($value, 'R$') !== false) {

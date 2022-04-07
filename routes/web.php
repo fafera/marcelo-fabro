@@ -61,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
     //Route::get('/admin/setlists/create/{quote_id}', [SetlistsController::class, 'create'])->name('admin.setlists.create');
     Route::get('/admin/setlists/show/{quote_id}', [SetlistsController::class, 'show'])->name('admin.setlists.show');
     Route::get('/admin/payments/{contract_id}', [PaymentsController::class, 'show'])->name('admin.payments.show');
+    Route::get('/admin/payments', [PaymentsController::class, 'index'])->name('admin.payments');
     Route::get('/admin/projects', [ProjectsController::class, 'index'])->name('admin.projects');
     Route::get('/admin/projects/create', [ProjectsController::class, 'create'])->name('admin.projects.create');
     Route::get('/admin/projects/{id}', [ProjectsController::class, 'show'])->name('admin.projects.show');
@@ -74,6 +75,7 @@ Route::prefix('informacoes/{slug}')->group(function() {
     Route::get('/', [InformationController::class, 'index'])->name('information.index');
     Route::get('/repertorio', [InformationController::class, 'setlist'])->name('information.setlist');
     Route::get('/contrato', [InformationController::class, 'contract'])->name('information.contract');
+    Route::get('/cliente', [InformationController::class, 'client'])->name('information.client');
 });
 
 

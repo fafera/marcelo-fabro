@@ -16,13 +16,20 @@ class Table extends DataTableComponent
     {
         return [
             Column::make('Data', 'quote.date')
+                ->format(function($value) {
+                    if($value != null) {
+                        return $value;
+                    } 
+                    return "N/A";
+                })
                 ->sortable(function(Builder $query, $direction) {
-                    $query->select('clients.*')
-                    ->from('clients')
-                    ->orderBy('quotes.date', $direction);
                     if($this->checkJoin($query, 'quotes') == false) {
                         $query->join('quotes','clients.id', '=', 'quotes.client_id');
                     }
+                    $query->select('clients.*')
+                    ->from('clients')
+                    ->orderBy('quotes.date', $direction);
+                    
                     return $query;
                 })
                 ->searchable(),
@@ -30,36 +37,57 @@ class Table extends DataTableComponent
                 ->sortable()
                 ->searchable(),
             Column::make('Horário', 'quote.time')
+                ->format(function($value) {
+                    if($value != null) {
+                        return $value;
+                    } 
+                    return "N/A";
+                })
                 ->sortable(function(Builder $query, $direction) {
-                    $query->select('clients.*')
-                    ->from('clients')
-                    ->orderBy('quotes.time', $direction);
                     if($this->checkJoin($query, 'quotes') == false) {
                         $query->join('quotes','clients.id', '=', 'quotes.client_id');
                     }
+                    $query->select('clients.*')
+                    ->from('clients')
+                    ->orderBy('quotes.time', $direction);
+                    
                     return $query;
                 })
                 ->searchable(),
             Column::make('Local', 'quote.place')
+                ->format(function($value) {
+                    if($value != null) {
+                        return $value;
+                    } 
+                    return "N/A";
+                })
                 ->sortable(function(Builder $query, $direction) {
-                    $query->select('clients.*')
-                    ->from('clients')
-                    ->orderBy('quotes.place', $direction);
                     if($this->checkJoin($query, 'quotes') == false) {
                         $query->join('quotes','clients.id', '=', 'quotes.client_id');
                     }
+                    $query->select('clients.*')
+                    ->from('clients')
+                    ->orderBy('quotes.place', $direction);
+                    
                     return $query;
                 })
                 ->searchable(),
             Column::make('Projeto', 'quote.project.title')
+                ->format(function($value) {
+                    if($value != null) {
+                        return $value;
+                    } 
+                    return "N/A";
+                })
                 ->sortable(function(Builder $query, $direction) {
+                    if($this->checkJoin($query, 'quotes') == false) {
+                        $query->join('quotes','clients.id', '=', 'quotes.client_id');
+                    }
                     $query->select('clients.*')
                         ->from('clients')
                         ->join('projects', 'projects.id', '=', 'quotes.project_id')
                         ->orderBy('quotes.place', $direction);
-                    if($this->checkJoin($query, 'quotes') == false) {
-                        $query->join('quotes','clients.id', '=', 'quotes.client_id');
-                    }
+                    
                     return $query;
                 })
                 ->searchable(),
@@ -68,7 +96,7 @@ class Table extends DataTableComponent
                     if($value !== null) {
                         return "<span class='badge bg-success'>Contrato gerado</span>";
                     } else {
-                        return "<span class='badge bg-danger'>Aguardando contrato</span>";
+                        return "<span class='badge bg-warning'>Aguardando contrato</span>";
                     }
                 })->asHtml(),
             Column::make('Repertório', 'quote')
@@ -81,10 +109,23 @@ class Table extends DataTableComponent
                     if(!$setlist->isEmpty()) {
                         return "<span class='badge bg-success'>Repertório registrado</span>";
                     } elseif($project->has_songbook == 0) {
-                        return "<span class='badge bg-success'>Sem repertório customizável</span>";
+                        return "<span class='badge bg-success'>Não customizável</span>";
                     } else {
-                        return "<span class='badge bg-danger'>Aguardando repertório</span>";
+                        return "<span class='badge bg-warning'>Aguardando repertório</span>";
                     }
+                })->asHtml(),
+            Column::make('Pagamento', 'contract')
+                ->format(function($contract) {
+                    if($contract != null) {
+                        if($contract->isPaymentDone) {
+                            return "<span class='badge bg-success'>Realizado</span>";
+                        } elseif($contract->isPaymentPartial) {
+                            return "<span class='badge bg-success'> falta ".$contract->remainingAmount."</span>";
+                        } else {
+                            return "<span class='badge bg-warning'>Aguardando pagamento</span>";
+                        }
+                    }
+                    return "<span class='badge bg-danger'>Aguardando contrato</span>";
                 })->asHtml(),
         ];
     }

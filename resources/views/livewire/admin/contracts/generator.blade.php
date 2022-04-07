@@ -4,11 +4,11 @@
         <small> Atenção: antes de gerar o contrato, confira se todos os dados do cliente e orçamento estão completos.</small>
     </div>
     <div class="card-body">
-        @if (session()->has('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
+        @error('*')
+            <div class="alert alert-danger">
+                {{ $message }}
             </div>
-        @endif
+        @enderror
         <form>
             @csrf
             <div class="row">

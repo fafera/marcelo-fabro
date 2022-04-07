@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaymentsTable extends Migration
+class AlterTablePaymentsAddDateColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
-            $table->id();
-            $table->decimal('value');
+        Schema::table('payments', function (Blueprint $table) {
             $table->date('date')->useCurrent();
-            $table->foreignId('contract_id')->coinstrained('contracts')->onDelete('CASCADE');
-            $table->timestamps();
         });
     }
 
@@ -29,6 +25,8 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::table('payments', function (Blueprint $table) {
+            $table->dropColumn('date');
+        });
     }
 }

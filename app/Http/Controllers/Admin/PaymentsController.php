@@ -8,7 +8,10 @@ use App\Http\Controllers\Controller;
 class PaymentsController extends Controller
 {
     public function show($id) {
-        dd($id);
         
+        
+    }
+    public function index() {
+        return view('admin.pages.payments.index');
     }
 }

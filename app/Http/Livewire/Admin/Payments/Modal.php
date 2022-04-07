@@ -11,15 +11,20 @@ class Modal extends Component
 {
     public Contract $contract; 
     public $value;
+    public $date;
+    
     public $rules = [
-        'value' => 'required'
+        'value' => 'required',
+        'date' => 'required'
+    ];
+    protected $messages = [
+        '*.required' => 'Por favor, preencha todos os campos.'
     ];
     public function mount(Contract $contract) {
         $this->contract = $contract;
     }
     public function render()
     {
-        //$this->resetErrorBag();
         return view('livewire.admin.payments.modal');
     }
     public function store() {
@@ -27,6 +32,7 @@ class Modal extends Component
         $this->validate();
         $payment = Payment::create([
             'value' => $this->value,
+            'date' => $this->date,
             'contract_id' => $this->contract->id
         ]);
         session()->flash('message', 'Pagamento adicionado com sucesso!');

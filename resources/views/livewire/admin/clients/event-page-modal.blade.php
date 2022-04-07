@@ -20,16 +20,22 @@
                 <form>
                     
                     @csrf
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-md-12 pr-1">
                             <div class="form-group">
                                 <input type="text" id="slug" wire:model.lazy="eventPage.slug" class="form-control" placeholder="Título">
                                 <small>Atenção: não utilizar acentos, caracteres especiais e espaços em branco. </small>
                             </div>
-                            
                         </div>
                     </div>
-                    
+                    @if($clipboard)
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <span>Clique aqui para copiar o link:</span>
+                                <span style="cursor: pointer;" id="client-url" data-clipboard="{{$clipboard}}" class="badge badge-primary">{{$clipboard}}</span>
+                            </div>
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="update ml-auto mr-auto">
                             <button wire:click.prevent="store" type="submit" class="btn btn-primary btn-round">
@@ -55,6 +61,11 @@
                     e.preventDefault();
                     return false;
                 }
+            });
+            $('#client-url').on('click', function(e) {
+                e.preventDefault();
+                navigator.clipboard.writeText($(this).data('clipboard'));
+                alert('Url copiada com sucesso!');
             });
         });
     </script>

@@ -10,11 +10,11 @@ class Contract extends Model
 {
     use HasFactory;
     protected $fillable = ['quote_id', 'client_id', 'custom_text', 'file', 'value', 'value_in_full'];
-    protected $appends = ['value_br'];
+    //protected $appends = ['value_br'];
     // public function getValueAttribute($value) {
     //     return FinancialHelper::formatToBRL($value);
     // }
-    public function getValueBrAttribute($value) {
+    public function getValueBRLAttribute($value) {
         return FinancialHelper::formatToBRL($this->value);
     }
     public function setValueAttribute($value) {
@@ -40,6 +40,18 @@ class Contract extends Model
             return $this->value - $this->payments->sum('value');
         }
         return $this->value;
+    }
+    public function getRemainingAmountBRLAttribute () {
+        if($this->remainingAmount) {
+            return FinancialHelper::formatToBRL($this->remainingAmount); 
+        }
+        return false;
+    }
+    public function getIsPaymentPartialAttribute() {
+        if(!$this->payments->isEmpty()) {
+            return $this->value > $this->payments->sum('value');
+        }
+        return false;
     }
     
 }

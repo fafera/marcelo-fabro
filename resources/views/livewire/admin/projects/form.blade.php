@@ -9,7 +9,7 @@
                 <div class="col-md-12 pr-1">
                     <div class="form-group">
                         <label>Título</label>
-                        <input type="text" wire:model="project.title" class="form-control">
+                        <input type="text" wire:model.lazy="project.title" class="form-control">
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <div class="col-md-12 pr-1">
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input id="has_songbook" wire:model="project.has_songbook" class="form-check-input" type="checkbox">
+                            <input id="has_songbook" wire:model.lazy="project.has_songbook" class="form-check-input" type="checkbox">
                             Possui repertório customizado
                             {{-- <span class="form-check-sign">
                                 <span class="check"></span>

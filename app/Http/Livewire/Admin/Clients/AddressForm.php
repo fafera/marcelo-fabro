@@ -35,9 +35,17 @@ class AddressForm extends Component
         return view('livewire.admin.clients.address-form');
     }
     public function store() {
+        $this->validate();
         $this->address->save();
-        session()->flash('message', 'Endereço editado com sucesso!');
-        return redirect()->route('admin.clients.show', $this->client->id);
+        $this->checkAuthRedirect();
+    }
+    private function checkAuthRedirect() {
+        if(auth()->user()) {
+            session()->flash('message', 'Endereço editado com sucesso!');
+            return redirect()->route('admin.clients.show', $this->client->id);
+        }
+            session()->flash('message', 'Endereço editado com sucesso!');
+            return redirect()->route('information.client', $this->client->eventPage->slug);
     }
     public function getCepInfo() {
         if($this->verifyCep() === true) { 

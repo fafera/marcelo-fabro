@@ -15,14 +15,23 @@ class Actions extends Component
     }
     public function mount($client = null) {
         $this->client = $client;
-        $this->setEventPageButton();
-        $this->setQuoteButton();
-        $this->setContractButton();
-        $this->setSetlistButton();
-        if($this->client->contract != null) {
-            $this->setPaymentButton();
-        }
         
+        $this->setQuoteButton();
+        
+    }
+    private function setQuoteButton() {
+        if($this->client->quote !== null) {
+            $this->quoteButton['route'] = route('admin.quotes.show', $this->client->quote->id);
+            $this->quoteButton['text'] = 'Visualizar Orçamento';
+            $this->quoteButton['class'] = 'btn-success';
+            $this->setEventPageButton();
+            $this->setContractButton();
+            $this->setSetlistButton();
+        } else {
+            $this->quoteButton['route'] = route('admin.quotes.create', $this->client->id);
+            $this->quoteButton['text'] = 'Adicionar Orçamento';
+            $this->quoteButton['class'] = 'btn-warning';
+        }
     }
     private function setEventPageButton() {
         if($this->client->eventPage !== null) {
@@ -35,23 +44,13 @@ class Actions extends Component
             $this->eventPageButton['class'] = 'btn-warning';
         }
     }
-    private function setQuoteButton() {
-        if($this->client->quote !== null) {
-            $this->quoteButton['route'] = route('admin.quotes.show', $this->client->quote->id);
-            $this->quoteButton['text'] = 'Visualizar Orçamento';
-            $this->quoteButton['class'] = 'btn-success';
-        } else {
-            $this->quoteButton['route'] = route('admin.quotes.create', $this->client->id);
-            $this->quoteButton['text'] = 'Adicionar Orçamento';
-            $this->quoteButton['class'] = 'btn-warning';
-        }
-    }
     private function setContractButton() {
         if($this->client->contract !== null) {
             $this->contractButton['route'] = route('admin.contracts.show', $this->client->contract->id);
             $this->contractButton['text'] = 'Visualizar Contrato';
             $this->contractButton['class'] = 'btn-success';
-        } elseif($this->client->quote !== null) {
+            $this->setPaymentButton();
+        } else {
             $this->contractButton['route'] = route('admin.contracts.generate', $this->client->quote->id);
             $this->contractButton['text'] = 'Gerar contrato';
             $this->contractButton['class'] = 'btn-warning';

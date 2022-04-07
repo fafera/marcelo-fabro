@@ -9,7 +9,7 @@
                 <div class="col-md-12 pr-1">
                     <div class="form-group">
                         <label>Título</label>
-                        <input type="text" wire:model="song.title" class="form-control" placeholder="Título">
+                        <input type="text" wire:model.lazy="song.title" class="form-control" placeholder="Título">
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <div class="col-md-12 pr-1">
                     <div class="form-group">
                         <label>Artista</label>
-                        <input type="text" wire:model="song.performer" class="form-control" placeholder="Artista">  
+                        <input type="text" wire:model.lazy="song.performer" class="form-control" placeholder="Artista">  
                     </div>
                 </div>  
             </div>
@@ -28,7 +28,7 @@
                         <div class="clearfix"></div>
                         @foreach($songbooks as $songbook)
                             <div class="form-check form-check-inline mr-5" wire:key="{{$songbook->id}}" >
-                                <input wire:model="songbooks_relation.{{$songbook->id}}" class="form-check-input" type="checkbox" id="{{$songbook->id}}">
+                                <input wire:model.lazy="songbooks_relation.{{$songbook->id}}" class="form-check-input" type="checkbox" id="{{$songbook->id}}">
                                 <label class="form-check-label" for="{{$songbook->id}}">{{$songbook->title}}</label>
                             </div>
                         @endforeach

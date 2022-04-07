@@ -11,11 +11,11 @@ class Form extends Component
     public $update = false;
     public $rules = [
         'client.name' => 'required',
-        'client.cpf' => 'required', 
-        'client.phone' => 'required',
-        'client.email' => 'required|email'
+        'client.cpf' => 'nullable', 
+        'client.phone' => 'nullable',
+        'client.email' => 'nullable|email'
     ];
-    public function mount($client = null) {
+    public function mount($client = null) { 
         if($client) {
             $this->client = $client;
             $this->update = true;
@@ -26,8 +26,16 @@ class Form extends Component
     public function store() {
         $this->validate();
         $this->client->save();
-        session()->flash('message', 'O cliente foi editado com sucesso!');
-        return redirect()->route('admin.clients.show', $this->client);
+        $this->checkAuthRedirect();
+        
+    }
+    private function checkAuthRedirect() {
+        if(auth()->user()) { 
+            session()->flash('message', 'O cliente foi editado com sucesso!');
+            return redirect()->route('admin.clients.show', $this->client);
+        }
+        session()->flash('message', 'Seus dados foram alterados com sucesso!');
+        return redirect()->route('information.client', $this->client->eventPage->slug);
     }
     public function render()
     {
