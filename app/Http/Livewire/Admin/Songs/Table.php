@@ -22,9 +22,10 @@ class Table extends DataTableComponent
                 ->searchable()
         ];
     }
+    
     public function query(): Builder
     {
-        return Song::query();
+        return Song::query()->orderBy('title', 'asc');
     }
     public function getTableRowUrl($row): string
     {
