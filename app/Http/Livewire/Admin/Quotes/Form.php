@@ -50,7 +50,8 @@ class Form extends Component
             session()->flash('message', 'O orçamento foi adicionado com sucesso!');
             return redirect()->route('admin.clients.show', $this->client->id);
         }
-        return session()->flash('message', 'O orçamento foi atualizado com sucesso!');
+        session()->flash('message', 'O orçamento foi atualizado com sucesso!');
+        return redirect()->route('admin.quotes.show', $this->quote->id);
 
     }
     public function delete() {
