@@ -11,6 +11,7 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 class Table extends DataTableComponent
 {
     public bool $paginationEnabled = true;
+    public bool $responsive = true;
     public function columns(): array
     {
         return [

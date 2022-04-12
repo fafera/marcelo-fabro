@@ -11,6 +11,8 @@ class Table extends DataTableComponent
 {
     public bool $paginationEnabled = true;
     public bool $responsive = true;
+    public string $defaultSortColumn = 'title';
+    public string $defaultSortDirection = 'asc';   
     public function columns(): array
     {
         return [
@@ -25,7 +27,7 @@ class Table extends DataTableComponent
     
     public function query(): Builder
     {
-        return Song::query()->orderBy('title', 'asc');
+        return Song::query();
     }
     public function getTableRowUrl($row): string
     {
