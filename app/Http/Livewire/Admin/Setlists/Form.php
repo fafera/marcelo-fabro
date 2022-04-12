@@ -39,7 +39,7 @@ class Form extends Component
     {
         $this->verifySetlistCustomization();
         $this->setPermittedSongs();
-        $this->moments = Moment::all();
+        $this->moments = Moment::orderBy('order')->get();
         $this->arraySize = count($this->moments);
         $this->quote = $quote;
         if(!$quote->setlist->isEmpty()) {
