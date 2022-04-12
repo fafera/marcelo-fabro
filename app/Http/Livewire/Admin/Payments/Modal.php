@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Payments;
 
+use App\Helpers\FinancialHelper;
 use Exception;
 use App\Models\Payment;
 use Livewire\Component;
@@ -41,8 +42,10 @@ class Modal extends Component
         // dd($this->value);
     }
     private function verifyValue() {
-        if($this->value > $this->contract->remainingAmount) {
-            throw new Exception('Valor inválido');
+        if(FinancialHelper::formatBRLtoDecimal($this->value) > $this->contract->remainingAmount) {
+            session()->flash('message', 'Ops. Valor Inválido!!');
+            session()->flash('status', 'danger');
+            return redirect()->route('admin.clients.show', $this->contract->client->id);
         }
     }
 }
