@@ -14,11 +14,36 @@ class Form extends Component
     public Song $song;
     public $update = false, $songbooks, $checkboxes;
     public array $songbooks_relation = [];
+    public $btnForward = false, $btnBackward = false;
     public $rules = [
         'song.title' => 'required',
         'song.performer' => 'required',
         'songbooks_relation' => 'sometimes'
     ];
+    private function checkButtons() {
+        if($this->nextSong() != null) {
+            $this->btnForward = true;
+        } 
+        if($this->previousSong() != null) {
+            $this->btnBackward = true;
+        }
+    }
+    private function nextSong() {
+        return Song::where('id', '>', $this->song->id)->orderBy('id', 'asc')->first();
+    }
+    private function previousSong() {
+        return Song::where('id', '<', $this->song->id)->orderBy('id', 'desc')->first();
+    }
+    public function forward() {
+        if($this->nextSong() != null) {
+            return redirect()->route('admin.songs.show', $this->nextSong()->id);
+        }
+    }
+    public function backward() {
+        if($this->previousSong() != null) {
+            return redirect()->route('admin.songs.show', $this->previousSong()->id);
+        }
+    }
     public function store() {
         $this->validate();
         $this->song->save();
@@ -73,6 +98,7 @@ class Form extends Component
     }
     public function mount($song = null) {
         $this->songbooks = Songbook::all();
+        $this->checkButtons();
         if(isset($song)) {
             return $this->getSong($song);   
         }

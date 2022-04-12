@@ -2,6 +2,16 @@
     <div class="card-header">
         <h5 class="card-title">Adicionar música ao repertório</h5>
     </div>
+    <div class="row">
+        <div class="col-lg-12">
+            @if($btnForward)
+                <button wire:click="forward" id="btn-forward" class="btn btn-primary float-lg-right"><i class="nc-icon nc-minimal-right"></i></button>
+            @endif
+            @if($btnBackward)
+                <button wire:click="backward" id="btn-backward" class="btn btn-primary float-lg-right"><i class="nc-icon nc-minimal-left"></i></button>
+            @endif
+        </div>
+    </div>
     <div class="card-body">
         <form>
             @csrf
