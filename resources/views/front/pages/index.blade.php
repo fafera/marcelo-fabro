@@ -2,7 +2,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <h5 class="mb-4">Bem-vindo, {{$information->client->name}}</h5>
+        <h5 class="mb-4">Bem-vindo(a), {{$information->client->name}}</h5>
         <div class="mb-4">
             <h6>Informações sobre o evento</h6>
             <p>Seu evento acontecerá no dia {{$information->quote->date}} às {{$information->quote->time}} no {{$information->quote->place}} com o projeto {{$information->quote->project->title}}.
