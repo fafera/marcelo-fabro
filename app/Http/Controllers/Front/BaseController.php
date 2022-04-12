@@ -15,4 +15,7 @@ class BaseController extends Controller
         return Quote::create($request->all());
         dd($request->all());
     }
+    public function jazz() {
+        return view('front.jazz');
+    }
 }

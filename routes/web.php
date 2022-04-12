@@ -32,6 +32,7 @@ use App\Http\Controllers\Front\InformationController;
 Route::get('/debug', [Debug::class, 'index']);
 Auth::routes();
 Route::get('/', [BaseController::class, 'index'])->name('front.index');
+Route::get('/jazzexpress', [BaseController::class, 'jazz'])->name('front.jazz');
 Route::post('/', [BaseController::class, 'request'])->name('front.quote.request');
 Route::get('/pdf/stream/{file_path}', [PDFController::class, 'stream'])->name('pdf.stream');
 Route::get('/criar-minha-pagina/{slug}', [ClientPageController::class, 'generate'])->name('front.create-page');
