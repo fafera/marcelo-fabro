@@ -27,7 +27,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 ">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 ">
                     <div class="form-group service-form-group">
                         <label class="control-label sr-only" for="cep"></label>
                         <input wire:model.lazy="cep" data-mask="00000-000"wire:blur="getCepInfo" id="cep"  name="cep" type="text"
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
                     <div class="form-group service-form-group">
                         <label class="control-label sr-only" for="city"></label>
                         <input wire:model.lazy="city" id="city" name="city" type="text"
@@ -71,7 +71,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
                     <div class="form-group service-form-group">
                         <label class="control-label sr-only" for="district"></label>
                         <input wire:model.lazy="district" id="district" name="district" type="text" 
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="form-group service-form-group">
                         <label class="control-label sr-only" for="number"></label>
                         <input wire:model.lazy="number" id="number" name="number" type="text" 
@@ -93,7 +93,7 @@
                         <div class="form-icon"><i class="fa fa-arrow-down-1-9"></i></div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="form-group service-form-group">
                         <label class="control-label sr-only" for="complement"></label>
                         <input wire:model.lazy="complement" id="complement" name="complement" type="text" 
