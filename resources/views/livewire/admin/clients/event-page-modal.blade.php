@@ -32,7 +32,10 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <span>Clique aqui para copiar o link:</span>
-                                <span style="cursor: pointer;" id="client-url" data-clipboard="{{$clipboard}}" class="badge badge-primary">{{$clipboard}}</span>
+                                <button id="copy-btn" style="all:unset" data-clipboard-target="#client-url">
+                                    <span style="cursor: pointer;" id="client-url" class="badge badge-primary">{{$clipboard}}</span>
+                                </button>
+                                
                             </div>
                         </div>
                     @endif
@@ -62,10 +65,15 @@
                     return false;
                 }
             });
-            $('#client-url').on('click', function(e) {
-                e.preventDefault();
-                navigator.clipboard.writeText($(this).data('clipboard'));
-                alert('Url copiada com sucesso!');
+            var clipboard = new ClipboardJS('#copy-btn');
+            $('#copy-btn').on('click', function(e) {
+                clipboard.on('success', function(e) {
+                    console.info('Action:', e.action);
+                    console.info('Text:', e.text);
+                    console.info('Trigger:', e.trigger);
+                    alert('URL Copiada com sucesso!');
+                    e.clearSelection();
+                });     
             });
         });
     </script>
