@@ -9,20 +9,20 @@
         @enderror
     </div>
     <div class="card-body">
-        <form>
+        <form id="setlist-form">
             @csrf
             @foreach ($moments as $moment)
                 <div class="row">
                     <div class="col-md-12 pr-1">
                         <div class="form-group">
                             <label>{{ $moment->title }}</label>
-                            <input type="text" wire:model="search.{{ $moment->id }}.query"
-                                wire:keydown.escape="resetSearch({{ $moment->id }})" class="form-control"
+                            <input type="text" id="search_{{$moment->id}}" wire:model="search.{{ $moment->id }}.query"
+                                wire:keydown.escape="resetSearch({{ $moment->id }})" data-id="{{$moment->id}}" class="form-control search-input"
                                 placeholder="Digite o nome da música...">
                         </div>
                     </div>
                 </div>
-                @isset($results[$moment->id])
+                @if(isset($results[$moment->id]) && $results[$moment->id] != null)
                     <div class="row">
                         <div class="col-md-12 pr-1">
                             <ul class="list-group">
@@ -40,7 +40,7 @@
                             </ul>
                         </div>
                     </div>
-                @endisset
+                @endif
             @endforeach
             <div class="row">
                 <div class="col-md-12 pr-1">
@@ -100,5 +100,11 @@
             @this.custom_moment_check = false;
             return $('#custom_moment_container').hide();
         });
-    </script>
+        // $('.search-input').on("blur", function(event) {
+        //     var moment_id = $(this).data('id');
+        //     console.log();
+        //     @this.resetSearch(moment_id);
+        // });
+</script>
+ 
 @endpush
