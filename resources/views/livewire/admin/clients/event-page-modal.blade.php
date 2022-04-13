@@ -67,6 +67,7 @@
             });
             var clipboard = new ClipboardJS('#copy-btn');
             $('#copy-btn').on('click', function(e) {
+                e.preventDefault();
                 clipboard.on('success', function(e) {
                     console.info('Action:', e.action);
                     console.info('Text:', e.text);
