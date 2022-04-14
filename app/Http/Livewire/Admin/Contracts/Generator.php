@@ -83,6 +83,8 @@ class Generator extends Component
     }
     private function generatePDF()
     {
+        $signatureDate = Carbon::now()->locale('pt_BR');
+        $signatureDate = "Farroupilha, ". $signatureDate->day. " de ". ucfirst($signatureDate->monthName). " de ".$signatureDate->year.".";
         $data = [
             'title' => 'Contrato de apresentação artística - ' . $this->client->name,
             'name' => $this->client->name,
@@ -96,6 +98,7 @@ class Generator extends Component
             'value_in_full' => $this->contract->value_in_full,
             'custom_text' => $this->getCustomText(),
             'limit_date' => $this->getPaymentLimitDate(),
+            'signature_date' => $signatureDate,
             'value_entrance' => FinancialHelper::formatToBRL($this->contract->value - ($this->contract->value * (80 / 100))),
             'value_final' => FinancialHelper::formatToBRL($this->contract->value - ($this->contract->value * (20 / 100)))
         ];
