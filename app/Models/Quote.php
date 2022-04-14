@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Quote extends Model
 {
-    protected $fillable = ['name', 'email', 'phone', 'date', 'time', 'place', 'city', 'project_id', 'message', 'with_singer', 'client_id'];
+    protected $fillable = ['name', 'email', 'phone', 'date', 'time', 'place', 'city', 'project_id', 'message', 'client_id'];
     use HasFactory;
 
     public function getDateAttribute($date) {

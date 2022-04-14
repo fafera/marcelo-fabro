@@ -59,7 +59,7 @@
                     <div class="form-icon"><i class="fa fa-city"></i></div>
                 </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="form-group">
                     <label class="control-label sr-only" for="project_id"></label>
                     <div class="select">
@@ -72,16 +72,6 @@
                     </div>
                 </div>
             </div>  
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
-                <div class="form-check mt-3">
-                    <input class="form-check-input" type="checkbox" wire:model.lazy="quote.with_singer" id="with_singer">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Formação com vocalista
-                    </label>
-                </div>
-            </div>  
-            
-            
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                 <div class="form-group">
                     <label class="control-label sr-only" for="message"></label>

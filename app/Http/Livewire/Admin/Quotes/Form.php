@@ -22,7 +22,6 @@ class Form extends Component
         'quote.city' => 'required', 
         'quote.project_id' => 'required',
         'quote.message' => 'sometimes',
-        'quote.with_singer' => 'sometimes',
         'quote.client_id' => 'sometimes'
     ];
     public function mount($quote = null, $client = null) {
@@ -40,9 +39,6 @@ class Form extends Component
         $this->projects = Project::all();
     }
     public function update() {
-        if($this->quote->with_singer == null) {
-            $this->quote->with_singer = false;
-        }
         $this->formatDateTime();
         $this->validate();        
         $this->quote->save();

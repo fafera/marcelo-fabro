@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3 pr-1">
+                <div class="col-md-5 pr-1">
                     <div class="form-group">
                         <label>Projeto</label>
                         <select id="project" name="project" wire:model.lazy="quote.project_id" class="form-control">
@@ -64,17 +64,6 @@
                                 <option value={{ $project->id }}>{{ $project->title }}</option>
                             @endforeach
                         </select>
-                    </div>
-                </div>
-                <div class="col-md-2 pr-1">
-                    <div class="form-group">
-                        <div class="form-check form-check-inline mt-3">
-                            <input class="form-check-input" type="checkbox" wire:model.defer="quote.with_singer"
-                                id="with_singer">
-                            <label class="form-check-label" for="with_singer">
-                                Formação com vocalista
-                            </label>
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-7 pr-1">

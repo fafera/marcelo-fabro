@@ -22,8 +22,7 @@ class QuoteForm extends Component
         'quote.place' => 'required',
         'quote.city' => 'required',
         'quote.project_id' => 'required',
-        'quote.message' => 'sometimes',
-        'quote.with_singer' => 'sometimes',
+        'quote.message' => 'sometimes'
     ];
     protected $messages = [
         '*' => 'Confira os dados do formulário e tente novamente.',
@@ -41,9 +40,6 @@ class QuoteForm extends Component
     }
     private function save() {
         $this->formatDateTime();
-        if($this->quote->with_singer == null) {
-            $this->quote->with_singer = false;
-        }
         $this->validate();
         $this->quote->save();
     }
