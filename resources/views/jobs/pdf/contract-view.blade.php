@@ -13,15 +13,21 @@
         .page_break { page-break-before: always; }
         .signature {
             position: absolute;
-            left: 0px;
+            left: 10px;
             bottom: 0px;
             max-width: 150px;
         }
-        .signature_right {
+        .signature-right {
             position: absolute;
-            right: 0px;
+            right: 10px;
             bottom: 0px;
             max-width: 150px;
+        }
+        .date-span {
+            position: absolute;
+            right: 10px;
+            bottom: 200px;
+            
         }
     </style>
 </head>
@@ -107,7 +113,9 @@
         jurídicos e legais efeitos.
     </p>
     {{-- <div class="page_break"></div> --}}
-    <img class="signature" src="{{asset('img/assinatura.png')}}"/>
-    <img class="signature_right" src="{{asset('img/assinatura_contratante.png')}}"/>
+    <span class="date-span"> {{$signature_date}}</span>
+    <img class="signature" src="{{asset('img/assinatura-left.png')}}"/>
+    <img class="signature-right" src="{{asset('img/assinatura-right.png')}}"/>
+    
 </body>
 </html>
