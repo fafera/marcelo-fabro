@@ -56,8 +56,10 @@ class Form extends Component
     }
     public function delete() {
         //Deleta o cliente CASCADE
-        $this->quote->client->delete();
-        //$this->quote->delete();
+        if($this->quote->client != null) {
+            $this->quote->client->delete();
+        }
+        $this->quote->delete();
         session()->flash('message', 'O orçamento foi excluído com sucesso!');
         return redirect()->route('admin.quotes');
     }
