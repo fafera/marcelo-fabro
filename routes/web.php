@@ -56,6 +56,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/moments/create', [MomentsController::class, 'create'])->name('admin.moments.create');
     Route::get('/admin/moments/{id}', [MomentsController::class, 'show'])->name('admin.moments.show');
     Route::get('/admin/songs', [SongsController::class, 'index'])->name('admin.songs');
+    Route::get('/admin/songs/custom', [SongsController::class, 'customSongs'])->name('admin.songs.custom');
     Route::get('/admin/songs/create', [SongsController::class, 'create'])->name('admin.songs.create');
     Route::get('/admin/songs/{id}', [SongsController::class, 'show'])->name('admin.songs.show');
     Route::get('/admin/setlists', [SetlistsController::class, 'index'])->name('admin.setlists');

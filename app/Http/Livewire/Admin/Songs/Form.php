@@ -98,8 +98,10 @@ class Form extends Component
     }
     public function mount($song = null) {
         $this->songbooks = Songbook::all();
-        $this->checkButtons();
+        
         if(isset($song)) {
+            $this->checkButtons();
+            $this->update = true;
             return $this->getSong($song);   
         }
         return $this->makeSong();

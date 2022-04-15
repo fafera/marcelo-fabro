@@ -10,6 +10,7 @@ use App\Models\Moment;
 use App\Models\Setlist;
 use Livewire\Component;
 use App\Models\Songbook;
+use App\Models\CustomSong;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use App\Models\CustomMoment;
@@ -167,7 +168,8 @@ class Form extends Component
                 'quote_id' => $this->quote->id,
             ];
             if(isset($register['custom_song'])) {
-                $storeData['custom_song_id'] = $register['song_id'];
+                $customSong = $this->storeCustomSong($register);
+                $storeData['custom_song_id'] = $customSong->id;
                 $storeData['song_id'] = null;
             } else {
                 $storeData['song_id'] = $register['song_id'];
@@ -175,6 +177,9 @@ class Form extends Component
             }
             $this->updateOrCreateSong($storeData);
         }
+    }
+    private function storeCustomSong($data) {
+        return CustomSong::create(['title' => $data['title'], 'performer' => $data['performer'], 'moment_id' => $data['moment_id']]);
     }
     public function updateOrCreateSong($storeData) {
         $setlist = Setlist::where('quote_id', $storeData['quote_id'])->where('moment_id', $storeData['moment_id'])->first();
@@ -224,7 +229,7 @@ class Form extends Component
     public function setCustomSong($song)
     {
         $this->dispatchBrowserEvent('closeCustomSongModal');
-        $this->data[$song['moment_id']] = ['song_id' => $song['id'], 'moment_id' => $song['moment_id'], 'custom_song' => 1];
+        $this->data[$song['moment_id']] = ['title' => $song['title'], 'performer' => $song['performer'],  'moment_id' => $song['moment_id'], 'custom_song' => 1];
         $this->search[$song['moment_id']]['query'] = $song['title'] . " - " . $song['performer'];
     }
     public function render()

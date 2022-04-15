@@ -17,4 +17,7 @@ class SongsController extends Controller
     public function create() {
         return view('admin.pages.songs.create');
     }
+    public function customSongs() {
+        return view('admin.pages.songs.custom_songs');
+    }
 }

@@ -27,12 +27,13 @@ class CustomSongModal extends Component
     }
     public function store() {
         $this->validate();
-        $customSong = new CustomSong([
+        $customSong =  [
             'title' => $this->title,
             'performer' => $this->performer,
             'moment_id' => $this->moment_id,
-        ]);
-        $customSong->save();
+        ];
+        
+        //$customSong->save();
         $this->resetFields();
         $this->emit('setCustomSong', $customSong);
     }
