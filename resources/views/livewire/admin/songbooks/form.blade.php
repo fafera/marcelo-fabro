@@ -22,10 +22,14 @@
             <div class="row">
                 <div class="col-md-12 pr-1">
                     <div class="form-check">
-                            <div class="form-check form-check-inline mr-5">
-                                <label class="form-check-label" for="singable">Possui vocal</label>
-                                <input id="singable" wire:model.lazy="songbook.singable" class="form-check-input" type="checkbox">
+                        <label>Projeto pertencente</label>
+                        <div class="clearfix"></div>
+                        @foreach($projects as $project)
+                            <div class="form-check form-check-inline mr-5" wire:key="{{$project->id}}" >
+                                <input wire:model.lazy="songbook.project_id" class="form-check-input" type="radio" value="{{$project->id}}" id="{{$project->id}}">
+                                <label class="form-check-label" for="{{$project->id}}">{{$project->title}}</label>
                             </div>
+                        @endforeach
                         </label>
                     </div>
                 </div>

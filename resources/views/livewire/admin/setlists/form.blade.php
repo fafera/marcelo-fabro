@@ -19,7 +19,7 @@
                             <input type="text" id="search_{{$moment->id}}" wire:model="search.{{ $moment->id }}.query"
                                 wire:keydown.escape="resetSearch({{ $moment->id }})" data-id="{{$moment->id}}" class="form-control search-input"
                                 placeholder="Digite o nome da música...">
-                            @if(isset($data[$moment->id]) && $data[$moment->id]['custom_song'] == true && auth()->user())
+                            @if(isset($data[$moment->id]) && isset($data[$moment->id]['custom_song']) && auth()->user())
                                 <span class="badge badge-warning">Música sugerida pelo cliente</span></h6>
                             @endif
                         </div>

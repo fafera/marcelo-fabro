@@ -2,18 +2,21 @@
 
 namespace App\Http\Livewire\Admin\Songbooks;
 
-use App\Models\Songbook;
+use App\Models\Project;
 use Livewire\Component;
+use App\Models\Songbook;
 
 class Form extends Component
 {
     public Songbook $songbook;
+    public $projects;
     public $title, $update = false;
     public $rules = [
         'songbook.title' => 'required',
-        'songbook.singable' => 'sometimes'
+        'songbook.project_id' => 'required'
     ];
     public function mount($id = null) {
+        $this->projects = Project::where('has_songbook', '1')->get();
         if($id !== null) {
             $this->songbook = Songbook::findOrFail($id);
             $this->title = "Detalhes de ".$this->songbook->title;

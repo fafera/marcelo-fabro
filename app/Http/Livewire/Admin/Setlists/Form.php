@@ -100,10 +100,12 @@ class Form extends Component
     }
     private function setPermittedSongs() {
         $this->songs = [];
-        $songbook = Songbook::with('songs')->where('singable', $this->quote->with_singer)->get();
-        $songbook->each(function ($item){
-            array_push($this->songs, $item->songs->all());
-        });
+        $songbook = $this->quote->project->songbook;
+        if($songbook != null) {
+            $songbook->each(function ($item){
+                array_push($this->songs, $item->songs->all());
+            });
+        }
         
         $this->songs = collect(Arr::flatten($this->songs));
         $this->songs = $this->songs->unique('id');
@@ -179,7 +181,20 @@ class Form extends Component
         }
     }
     private function storeCustomSong($data) {
-        return CustomSong::create(['title' => $data['title'], 'performer' => $data['performer'], 'moment_id' => $data['moment_id']]);
+        if(!isset($data['song_id'])) {
+            $this->checkAndRemoveCustomSong($data);
+            return CustomSong::create(['title' => $data['title'], 'performer' => $data['performer'], 'moment_id' => $data['moment_id']]);
+        }    
+        return CustomSong::find($data['song_id']);
+    }
+    private function checkAndRemoveCustomSong($data) {
+        $setlistSong = Setlist::where('quote_id', $this->quote->id,)->where('moment_id', $data['moment_id'])->first();
+        if($setlistSong != null ) {
+            $customSong = CustomSong::find($setlistSong->custom_song_id) ;
+            $setlistSong->delete();
+            $customSong->delete();
+            
+        }
     }
     public function updateOrCreateSong($storeData) {
         $setlist = Setlist::where('quote_id', $storeData['quote_id'])->where('moment_id', $storeData['moment_id'])->first();

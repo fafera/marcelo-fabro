@@ -15,4 +15,7 @@ class Project extends Model
     public function quotes() {
         return $this->hasMany(Quote::class, 'project_id');
     }
+    public function songbook() {
+        return $this->hasOne(Songbook::class, 'project_id');
+    }
 }
