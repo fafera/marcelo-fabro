@@ -21,7 +21,6 @@ class Table extends DataTableComponent
                 ->sortable(function(Builder $query, $direction) {
                     return $query->orderBy('singable', $direction);
                 })
-                ->searchable()
         ];
     }
     public function query(): Builder

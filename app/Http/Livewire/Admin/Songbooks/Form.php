@@ -11,9 +11,18 @@ class Form extends Component
     public Songbook $songbook;
     public $projects;
     public $title, $update = false;
-    public $rules = [
-        'songbook.title' => 'required',
-        'songbook.project_id' => 'required'
+    // public $rules = [
+    //     'songbook.title' => 'required',
+    //     'songbook.project_id' => 'required|unique:projects,id'
+    // ];
+    protected function rules() {
+        return [
+            'songbook.title' => 'required',
+            'songbook.project_id' => 'required|unique:songbooks,project_id,'. $this->songbook->id
+        ];
+    }
+    protected $messages = [
+        'songbook.project_id.unique' => 'Este projeto já possui um repertório definido!'
     ];
     public function mount($id = null) {
         $this->projects = Project::where('has_songbook', '1')->get();

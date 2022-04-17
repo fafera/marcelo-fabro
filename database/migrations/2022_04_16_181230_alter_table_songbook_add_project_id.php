@@ -14,7 +14,7 @@ class AlterTableSongbookAddProjectId extends Migration
     public function up()
     {
         Schema::table('songbooks', function (Blueprint $table) {
-            $table->foreignId('project_id')->nullable()->constrained('projects')->onDelete('SET NULL');
+            $table->foreignId('project_id')->nullable()->unique('project_id')->constrained('projects')->onDelete('SET NULL');
         });
     }
 
