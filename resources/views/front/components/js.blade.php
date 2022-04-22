@@ -22,7 +22,7 @@
         window.open('mailto:marcelofabromusic@gmail.com?Subject=Contato%20pelo%20site');
     });
     var played = false
-    var audio = new Audio("../audio.mp3");
+    var audio = new Audio("{{asset('audio.mp3')}}");
     $('#sound-play').on('click', function(e) {
         e.preventDefault();
         if(played == false) {
