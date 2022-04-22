@@ -12,7 +12,7 @@
 
     <!-- This div is  intentionally blank. It creates the transparent black overlay over the video which you can modify in the CSS -->
     <div class="overlay"></div>
-    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+    <video id="video-intro" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
         <source src="{{asset('intro.mp4')}}" type="video/mp4">
       </video>
     <div class="container d-flex h-100 align-items-center">

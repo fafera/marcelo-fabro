@@ -28,11 +28,12 @@
         if(played == false) {
             played = true;
             $('#sound-play i').addClass('fa-pause').removeClass('fa-play');
-            audio.play();
+            $('#video-intro').prop('muted', false);
+            //audio.play();
         } else {
             played = false;
             $('#sound-play i').addClass('fa-play').removeClass('fa-pause');
-            audio.pause();
+            $('#video-intro').prop('muted', true);
         }
     });
     $(window).scroll(function() {
