@@ -7,9 +7,6 @@
 <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
 <script src="{{asset('js/admin/plugins/jquery.dataTables.min.js')}}"></script>
 
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-
 <!-- Chart JS -->
 <script src="{{asset('js/admin/plugins/chartjs.min.js')}}"></script>
 

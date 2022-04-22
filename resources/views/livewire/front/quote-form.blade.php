@@ -45,14 +45,14 @@
                 </div>
             </div>
             
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 ">
                 <div class="form-group service-form-group">
                     <label class="control-label sr-only" for="place"></label>
                     <input wire:model.lazy="quote.place" id="place" name="place" type="text" placeholder="Local" class="form-control" required>
                     <div class="form-icon"><i class="fa fa-location-pin"></i></div>
                 </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 ">
                 <div class="form-group service-form-group">
                     <label class="control-label sr-only" for="city"></label>
                     <input wire:model.lazy="quote.city" id="city" name="city" type="text" placeholder="Cidade" class="form-control" required>
