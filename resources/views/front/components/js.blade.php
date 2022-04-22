@@ -21,4 +21,21 @@
     $('#email').on('click',function() {
         window.open('mailto:marcelofabromusic@gmail.com?Subject=Contato%20pelo%20site');
     });
+    var played = false
+    var audio = new Audio("../audio.mp3");
+    $('#sound-play').on('click', function(e) {
+        e.preventDefault();
+        if(played == false) {
+            played = true;
+            $('#sound-play i').addClass('fa-pause').removeClass('fa-play');
+            audio.play();
+        } else {
+            played = false;
+            $('#sound-play i').addClass('fa-play').removeClass('fa-pause');
+            audio.pause();
+        }
+    });
+    $(window).scroll(function() {
+        
+    });
 </script>
