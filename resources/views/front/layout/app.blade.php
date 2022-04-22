@@ -8,22 +8,22 @@
   <meta name="author" content="Fafa Capellari">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- MS Tile - for Microsoft apps-->
-  <meta name="msapplication-TileImage" content="{{asset('img/site.png')}}">    
+  <meta name="msapplication-TileImage" content="{{asset('img/marcelo.jpeg')}}">    
 
   <!-- fb & Whatsapp -->
 
   <!-- Site Name, Title, and Description to be displayed -->
   <meta property="og:site_name" content="Marcelo Fabro - Produção Musical">
-  <meta property="og:title" content="Marcelo Fabro - Produção Musical para Eventos Marcantes">
+  <meta property="og:title" content="Marcelo Fabro - Produção Musical">
   <meta property="og:description" content="Marcelo Fabro - Produção Musical é a garantia de um evento marcante com momentos encantadores e inesquecíveis embaladas por um repertório totalmente elaborado de acordo com seu gosto.">
 
   <!-- Image to display -->
   <!-- Replace   «example.com/image01.jpg» with your own -->
-  <meta property="og:image" content="{{asset('img/site.png')}}">
+  <meta property="og:image" content="{{asset('img/marcelo.jpeg')}}">
 
   <!-- No need to change anything here -->
   <meta property="og:type" content="website" />
-  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:type" content="image/jpeg">
 
   <!-- Size of image. Any size up to 300. Anything above 300px will not work in WhatsApp -->
   <meta property="og:image:width" content="300">
