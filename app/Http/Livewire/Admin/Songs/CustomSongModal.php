@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CustomSongModal extends Component
 {
-    public $moment_id, $title, $performer;
-    public $listeners = ['setMomentId'];
+    public $dataKey, $title, $performer;
+    // public $moment_id;
+    public $listeners = ['setDataKey'];
     public $rules = [
-        'moment_id' => 'required', 
+        // 'moment_id' => 'required', 
         'title' => 'required',
         'performer' => 'required'
     ];
@@ -22,22 +23,21 @@ class CustomSongModal extends Component
     {
         return view('livewire.admin.songs.custom-song-modal');
     }   
-    public function setMomentId($id) {
-        $this->moment_id = $id;
+    public function setDataKey($key) {
+        $this->dataKey = $key;
     }
     public function store() {
         $this->validate();
         $customSong =  [
             'title' => $this->title,
             'performer' => $this->performer,
-            'moment_id' => $this->moment_id,
+            'key' => $this->dataKey,
         ];
-        
         //$customSong->save();
         $this->resetFields();
         $this->emit('setCustomSong', $customSong);
     }
     private function resetFields() {
-        $this->reset(['title', 'performer', 'moment_id']);
+        $this->reset(['title', 'performer', 'dataKey']);
     }
 }

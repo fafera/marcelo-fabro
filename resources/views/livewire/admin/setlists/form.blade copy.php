@@ -9,54 +9,43 @@
         @enderror
     </div>
     <div class="card-body">
-        <form wire:submit.prevent="store" id="setlist-form">
+        <form id="setlist-form">
             @csrf
-            @foreach($data as $key => $input)
+            @foreach ($moments as $moment)
                 <div class="row">
                     <div class="col-md-12 pr-1">
-                        <div class="form-group" id="moment-input-container" wire:key="{{time().$key}}">
-                            <label>Selecione o momento que deseja adicionar:</label>
-                            <select wire:model="moment_select.{{$key}}"  id="moments" class="form-control">
-                                <option>Selecione o momento:</option>
-                                @foreach ($moments as $moment)
-                                    <option value="{{ $moment->id }}">{{ $moment->title }}</option>
-                                @endforeach
-                            </select>
-                            <input type="text" 
-                                class="form-control search-input mt-2" placeholder="Digite o nome da música..."
-                                wire:model="search.{{ $key }}.query"
-                                
-                                wire:keydown.escape="resetSearch({{ $key }})" 
-                                >
+                        <div class="form-group">
+                            <label>{{ $moment->title }}</label>
+                            <input type="text" id="search_{{$moment->id}}" wire:model="search.{{ $moment->id }}.query"
+                                wire:keydown.escape="resetSearch({{ $moment->id }})" data-id="{{$moment->id}}" class="form-control search-input"
+                                placeholder="Digite o nome da música...">
+                            @if(isset($data[$moment->id]) && isset($data[$moment->id]['custom_song']) && auth()->user())
+                                <span class="badge badge-warning">Música sugerida pelo cliente</span></h6>
+                            @endif
                         </div>
                     </div>
                 </div>
-                @if (isset($results[$key]) && $results[$key] != null)
+                @if(isset($results[$moment->id]) && $results[$moment->id] != null)
                     <div class="row">
                         <div class="col-md-12 pr-1">
                             <ul class="list-group">
-                                @if ($results[$key]->first() !== null)
-                                    @foreach ($results[$key] as $result)
+                                @if ($results[$moment->id]->first() !== null)
+                                    @foreach ($results[$moment->id] as $result)
                                         <li class="list-group-item"><a href="#"
-                                                wire:click="setSong({{ $result['id'] }}, {{ $key }})">{{ $result['title'] }}
+                                                wire:click="setSong({{ $result['id'] }}, {{ $moment->id }})">{{ $result['title'] }}
                                                 - {{ $result['performer'] }}</a></li>
                                     @endforeach
                                 @else
-                                    <li class="list-group-item"><a wire:click="showCustomSongModal({{ $key }})" href="#">Não
-                                            encontrou?
+                                    <li class="list-group-item"><a wire:click="showCustomSongModal({{$moment->id}})" href="#">Não encontrou?
                                             Clique aqui e insira a música que você deseja.</a></li>
                                 @endif
+
                             </ul>
                         </div>
                     </div>
                 @endif
-            @endforeach     
+            @endforeach
             <div class="row">
-                <div class="col-lg-12">
-                    <button type="button" wire:click="addMoment" class="btn btn-primary">Adicionar outro momento</button>
-                </div>
-            </div>
-            <div class="row" id="custom_moment_div">
                 <div class="col-md-12 pr-1">
                     <div class="form-check">
                         <div class="form-check form-check-inline mr-5" >
@@ -83,7 +72,7 @@
             </div>
             <div class="row">
                 <div class="update ml-auto mr-auto">
-                    <button  type="submit" class="btn btn-success btn-round">Salvar repertório</button>
+                    <button wire:click.prevent="store" type="submit" class="btn btn-success btn-round">Salvar repertório</button>
                 </div>
             </div>
         </form>
@@ -97,15 +86,11 @@
         });
         window.addEventListener('showCustomSongModal', event => {
             $("#custom-song-modal").modal('show');
-            console.log(event.detail.key);
-            Livewire.emit('setDataKey', event.detail.key);
+            Livewire.emit('setMomentId', event.detail.moment);
         });
         window.addEventListener('closeCustomSongModal', event => {
             $("#custom-song-modal").find('form').trigger('reset');
             $("#custom-song-modal").modal('hide');
-        });
-        window.addEventListener('appendInput', event => {
-            $('#moment-input-container').append(event.detail.view);
         });
         // window.addEventListener('checkCustomMomentCheckbox', event => {
         //     $('.wrapper').html('arara');

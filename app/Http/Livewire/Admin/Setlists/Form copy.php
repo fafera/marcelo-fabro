@@ -19,8 +19,7 @@ class Form extends Component
 {
     public $songs;
     public $moments;
-    public $moment_select = [];
-    public $selectedMoment = [];
+    public $moment_select;
     public Quote $quote;
     public $search = [];
     public $results = [];
@@ -33,12 +32,16 @@ class Form extends Component
     public $rules = [
         'search.*.query' => 'required',
         'custom_moment.*' => 'sometimes',
-        'moment_select.*' => 'sometimes'
+        'moment_select' => 'sometimes'
     ];
     public $messages = [
         'search.*.query.required' => 'Por favor, preencha todos os momentos.'
     ];
-    
+    public function updatedMomentSelect($value) {
+       
+        //$this->dispatchBrowserEvent('appendInput', ['view' => view('livewire.admin.setlists.song-input', ['moment' => Moment::findOrFail($value)])->render()]);
+        
+    }
     public function mount(Quote $quote)
     {
         $this->verifySetlistCustomization();
@@ -51,11 +54,10 @@ class Form extends Component
             $this->bindData();
             $this->bindCustomMoment();
         } else {
-            $this->data[] = [];
+            $this->data[] = '';
         }
         
     }
-   
     public function exportPdf() {
         $data = $this->buildPdfData();
         $pdf = PDF::loadView('jobs.pdf.songbook', $data)->setPaper('a4', 'landscape');
@@ -79,7 +81,6 @@ class Form extends Component
     }
     private function bindData() {
         foreach($this->quote->setlist as $setlistSong) {
-            
             if(!isset($setlistSong->song)) {
                 $id = $setlistSong->customSong->id;
                 $custom = true;
@@ -94,7 +95,6 @@ class Form extends Component
                 'moment_id' => $setlistSong->moment_id, 
                 'custom_song' => $custom
             ];
-            $this->moment_select[$setlistSong->moment_id] = $setlistSong->moment_id;
             $this->search[$setlistSong->moment_id]['query'] = $query;
         }
     }
@@ -122,13 +122,15 @@ class Form extends Component
     {
         unset($this->results);
         $this->validate();
-        $this->saveSetlist();
-        if($this->update) {
-            session()->flash('message', 'O repertório foi editado com sucesso!');
-        } else {
-            session()->flash('message', 'O repertório foi cadastrado com sucesso!');
+        if (count($this->data) === $this->arraySize) {
+            $this->saveSetlist();
+            if($this->update) {
+                session()->flash('message', 'O repertório foi editado com sucesso!');
+            } else {
+                session()->flash('message', 'O repertório foi cadastrado com sucesso!');
+            }
+            return $this->redirectWithVerification();
         }
-        return $this->redirectWithVerification();
         return $this->addError('search.*.query', 'Ops! Acho que algumas músicas são inválidas.');
     }
     private function redirectWithVerification() {
@@ -215,29 +217,12 @@ class Form extends Component
         $this->results[$moment] = null;
         unset($this->data[$moment]);
     }
-    public function setSong($songId, $dataKey)
+    public function setSong($songId, $momentId)
     {
-        $this->verifyCustomSongBind($dataKey);
-        $this->data[$dataKey]['song_id'] = $songId;
-        $this->resetResults($dataKey);
+        $this->data[$momentId] = ['song_id' => $songId, 'moment_id' => $momentId];
+        $this->resetResults($momentId);
         $song = Song::findOrFail($songId);
-        $this->search[$dataKey]['query'] = $song->fullString;
-    }
-    private function verifyCustomSongBind($key) {
-        if(isset($this->data[$key]['custom_song'])) {
-            unset($this->data[$key]['custom_song']);
-        }
-        if(isset($this->data[$key]['title'])) {
-            unset($this->data[$key]['title']);
-        }
-        if(isset($this->data[$key]['performer'])) {
-            unset($this->data[$key]['performer']);
-        }
-    }
-    private function verifySongIdBind($key) {
-        if(isset($this->data[$key]['song_id'])) {
-            unset($this->data[$key]['song_id']);
-        }
+        $this->search[$momentId]['query'] = $song->fullString;
     }
     public function resetResults($key)
     {
@@ -254,34 +239,24 @@ class Form extends Component
         $key = $this->getKeyValue($key);
         $this->results[$key] = $search;
     }
-    public function updatedMomentSelect($value, $key) {
-        $this->data[$key]['moment_id'] = $value;
-        
-    }
     private function getKeyValue($key)
     {
         $key = explode('.', $key);
         return $key[0];
     }
-    public function showCustomSongModal($dataKey)
+    public function showCustomSongModal($moment)
     {
-        $this->resetResults($dataKey);
-        $this->dispatchBrowserEvent('showCustomSongModal', ['key' => $dataKey]);
+        $this->resetResults($moment);
+        $this->dispatchBrowserEvent('showCustomSongModal', ['moment' => $moment]);
     }
     public function setCustomSong($song)
     {
         $this->dispatchBrowserEvent('closeCustomSongModal');
-        $this->verifySongIdBind($song['key']);
-        $this->data[$song['key']]['title'] = $song['title']; 
-        $this->data[$song['key']]['performer'] = $song['performer'];
-        $this->data[$song['key']]['custom_song'] = 1;
-        $this->search[$song['key']]['query'] = $song['title'] . " - " . $song['performer'];
-    }
-    public function addMoment() {
-        $this->data[] =  [];
+        $this->data[$song['moment_id']] = ['title' => $song['title'], 'performer' => $song['performer'],  'moment_id' => $song['moment_id'], 'custom_song' => 1];
+        $this->search[$song['moment_id']]['query'] = $song['title'] . " - " . $song['performer'];
     }
     public function render()
     {
-        return view('livewire.admin.setlists.form' );
+        return view('livewire.admin.setlists.form');
     }
 }
