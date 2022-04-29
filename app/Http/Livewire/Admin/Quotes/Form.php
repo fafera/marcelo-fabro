@@ -14,12 +14,12 @@ class Form extends Component
     public $quote, $client, $projects, $update = false;
     protected $rules = [
         'quote.name' => 'required',
-        'quote.email' => 'required|email',
-        'quote.phone' => 'required',
+        'quote.email' => 'sometimes|email',
+        'quote.phone' => 'sometimes',
         'quote.date' => 'required',
         'quote.time' => 'required',
         'quote.place' => 'required',
-        'quote.city' => 'required', 
+        'quote.city' => 'sometimes', 
         'quote.project_id' => 'required',
         'quote.message' => 'sometimes',
         'quote.client_id' => 'sometimes'
