@@ -30,6 +30,15 @@ class Table extends DataTableComponent
                 ->searchable(function(Builder $query, $searchTerm){
                     return $query->orWhere('payments.value', 'like', '%'.$searchTerm.'%');
                 }),
+            Column::make('Valor restante', 'contract.remainingAmountBRL')
+                ->format(function($value) {
+                    if($value !== false) {
+                        return $value;
+                    } else {
+                        return "-";
+                    }
+                }),
+            Column::make('Valor do contrato', 'contract.valueBRL'),
             Column::make('Cliente', 'contract.client.name')
                 ->sortable(function(Builder $query, $direction) {
                     return $query->orderBy('clients.name', $direction);
