@@ -15,7 +15,7 @@ class CreateRidersTable extends Migration
     {
         Schema::create('riders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('quote_id')->constrained('quotes');
+            $table->foreignId('quote_id')->constrained('quotes')->onDelete('CASCADE');
             $table->string('file');
             $table->timestamps();
         });

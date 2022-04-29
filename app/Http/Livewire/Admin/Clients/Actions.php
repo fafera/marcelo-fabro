@@ -8,7 +8,7 @@ use Livewire\Component;
 class Actions extends Component
 {
     public Client $client; 
-    public $quoteButton = [], $contractButton = [], $setlistButton = [], $eventPageButton = [], $paymentButton;
+    public $quoteButton = [], $contractButton = [], $setlistButton = [], $eventPageButton = [], $paymentButton, $riderButton;
     public function render()
     {
         return view('livewire.admin.clients.actions');
@@ -27,6 +27,7 @@ class Actions extends Component
             $this->setEventPageButton();
             $this->setContractButton();
             $this->setSetlistButton();
+            $this->setRiderButton();
         } else {
             $this->quoteButton['route'] = route('admin.quotes.create', $this->client->id);
             $this->quoteButton['text'] = 'Adicionar Orçamento';
@@ -85,6 +86,16 @@ class Actions extends Component
             $this->paymentButton['route'] = '#';
             $this->paymentButton['text'] = 'Aguardando pagamento';
             $this->paymentButton['class'] = 'btn-danger';
+        } 
+    }
+    private function setRiderButton() {
+        $this->riderButton['route'] = '#';
+        if($this->client->quote->rider !== null) {
+            $this->riderButton['text'] = 'Visualizar Rider';
+            $this->riderButton['class'] = 'btn-success';
+        } else {
+            $this->riderButton['text'] = 'Aguardando Rider';
+            $this->riderButton['class'] = 'btn-warning';
         } 
     }
 }

@@ -16,15 +16,20 @@
             @if(!empty($paymentButton))
                 <a target="_blank" id="payment-button" href="{{$paymentButton['route']}}" class="btn {{$paymentButton['class']}}">{{$paymentButton['text']}}</a>
             @endif
+            @if(!empty($riderButton))
+                <a target="_blank" id="rider-button" href="{{$riderButton['route']}}" class="btn {{$riderButton['class']}}">{{$riderButton['text']}}</a>
+            @endif
             
         </div>
     </div>
     @if($client->quote != null)
         <livewire:admin.clients.event-page-modal :client="$client" />
+        <livewire:admin.riders.modal :quote="$client->quote"/>
     @endif
     @if($client->contract != null)
         <livewire:admin.payments.modal :contract="$client->contract" />
     @endif
+    
 </div>
 @push('scripts')
     <script type="text/javascript">
@@ -35,6 +40,10 @@
         $('#payment-button').on('click', function(event){
             event.preventDefault();
             $('#payment-modal').modal('show');
+        });
+        $('#rider-button').on('click', function(event){
+            event.preventDefault();
+            $('#rider-modal').modal('show');
         });
         // window.addEventListener('closeEventPageModal', event => {
         //     $("#event-page-modal").find('form').trigger('reset');
