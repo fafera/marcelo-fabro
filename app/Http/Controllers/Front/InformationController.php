@@ -42,4 +42,8 @@ class InformationController extends Controller
         $eventPage = ClientEventPage::where('slug', request()->route()->parameters['slug'])->first();
         return view('admin.pages.clients.show_self', ['client' => $eventPage->client, 'songbook' => $this->songbook]);
     }
+    public function rider($slug) {
+        $eventPage = ClientEventPage::where('slug', request()->route()->parameters['slug'])->first();
+        return view('admin.pages.rider.show', ['quote' => $eventPage->quote]);
+    }
 }

@@ -78,6 +78,7 @@ Route::prefix('informacoes/{slug}')->group(function() {
     Route::get('/repertorio', [InformationController::class, 'setlist'])->name('information.setlist');
     Route::get('/contrato', [InformationController::class, 'contract'])->name('information.contract');
     Route::get('/cliente', [InformationController::class, 'client'])->name('information.client');
+    Route::get('/rider', [InformationController::class, 'rider'])->name('information.rider');
 });
 
 

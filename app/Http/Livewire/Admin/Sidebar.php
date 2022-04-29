@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Route;
 class Sidebar extends Component
 {
     private $modules;
-    private $slugPosition = 3;
-    //private $slugPosition = 2;
+    //private $slugPosition = 3;
+    private $slugPosition = 2;
     public function mount() {
         if(auth()->user()) {
             $this->modules = collect([
@@ -31,7 +31,8 @@ class Sidebar extends Component
                 ['id'=> 'index-li','name' => 'information.index' , 'route' => route('information.index', $slug), 'text' => 'Dashboard', 'icon' => 'nc-bank'],
                 ['id'=> 'client-li','name' => 'information.client', 'route' => route('information.client', $slug), 'text' => 'Dados Cadastrais', 'icon' => 'nc-single-02'],
                 ['id'=> 'setlist-li', 'name' => 'information.setlist', 'route' => route('information.setlist', $slug), 'text' => 'Repertório', 'icon' => 'nc-note-03'],
-                ['id'=> 'contract-li','name' => 'information.contract', 'route' => route('information.contract', $slug), 'text' => 'Contrato', 'icon' => 'nc-single-copy-04']
+                ['id'=> 'contract-li','name' => 'information.contract', 'route' => route('information.contract', $slug), 'text' => 'Contrato', 'icon' => 'nc-single-copy-04'],
+                ['id' => 'rider-li', 'name'=> 'information.rider', 'route' => route('information.rider', $slug), 'text' => 'Rider de palco', 'icon' => 'nc-ruler-pencil']
             ]);
         }
         $this->checkActiveModule();

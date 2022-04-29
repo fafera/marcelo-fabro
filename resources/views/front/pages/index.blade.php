@@ -22,7 +22,7 @@
                     <p>Boa! Você já definiu o repertório. Agora é só aguardar o momento tão aguardado.</p>
                     <p>Se quiser conferir as músicas, é só clicar aqui: <a href="{{route('information.setlist',  $information->slug)}}"> ver músicas do repertório </a></p>
                 @else
-                    <p>Você ainda não definiu seu repertório! <a href="{{route('information.setlist',  $information->slug)}}"> Clique aqui </a> para definí-lo agora mesmo.</p>
+                    <p>Você ainda não definiu seu repertório! <a href="{{route('information.setlist',  $information->slug)}}"> Clique aqui </a> para defini-lo agora mesmo.</p>
                 @endif
             </div>
         @endif

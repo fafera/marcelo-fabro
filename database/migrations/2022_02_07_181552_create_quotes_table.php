@@ -16,12 +16,12 @@ class CreateQuotesTable extends Migration
         Schema::create('quotes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email');
-            $table->string('phone');
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
             $table->date('date');
             $table->time('time');
             $table->string('place');
-            $table->string('city');
+            $table->string('city')->nullable();
             $table->foreignId('project_id')->constrained('projects');
             $table->boolean('with_singer')->default(false);
             $table->foreignId('client_id')->nullable()->constrained('clients')->onDelete('CASCADE');
