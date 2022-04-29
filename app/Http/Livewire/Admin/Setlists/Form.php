@@ -109,7 +109,6 @@ class Form extends Component
     private function setPermittedSongs() {
         $this->songs = [];
         $songbook = $this->quote->project->songbook;
-        dd($songbook);
         if($songbook != null) {
             $songbook->songs->each(function ($item){
                 array_push($this->songs, $item);
