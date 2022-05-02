@@ -36,7 +36,7 @@ class InformationController extends Controller
     }
     public function contract($slug) {
         $eventPage = ClientEventPage::where('slug', request()->route()->parameters['slug'])->first();
-        return view('admin.pages.contracts.show', ['contract' => $eventPage->contract, 'songbook' => $this->songbook]);
+        return view('admin.pages.contracts.show_self', ['contract' => $eventPage->contract, 'songbook' => $this->songbook]);
     }
     public function client($slug) {
         $eventPage = ClientEventPage::where('slug', request()->route()->parameters['slug'])->first();
@@ -44,6 +44,6 @@ class InformationController extends Controller
     }
     public function rider($slug) {
         $eventPage = ClientEventPage::where('slug', request()->route()->parameters['slug'])->first();
-        return view('admin.pages.rider.show', ['quote' => $eventPage->quote]);
+        return view('admin.pages.rider.show_self', ['quote' => $eventPage->quote, 'songbook' => $this->songbook]);
     }
 }

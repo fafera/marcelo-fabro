@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('front.layout.event')
 @section('content')
     <div class="row">
         <div class="col-lg-12">
