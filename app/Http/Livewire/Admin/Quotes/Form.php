@@ -14,7 +14,7 @@ class Form extends Component
     public $quote, $client, $projects, $update = false;
     protected $rules = [
         'quote.name' => 'required',
-        'quote.email' => 'sometimes|email',
+        'quote.email' => 'sometimes|required|email',
         'quote.phone' => 'sometimes',
         'quote.date' => 'required',
         'quote.time' => 'required',
