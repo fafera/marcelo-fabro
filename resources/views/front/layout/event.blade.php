@@ -33,6 +33,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var songbook_check = {!!json_encode($songbook)!!}
+        console.log(songbook_check);
         if(songbook_check != 1) {
             $('#setlist-li').remove();
         }
