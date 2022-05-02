@@ -14,15 +14,15 @@ class Form extends Component
     public $quote, $client, $projects, $update = false;
     protected $rules = [
         'quote.name' => 'required',
-        'quote.email' => 'sometimes|required|email',
-        'quote.phone' => 'sometimes',
+        'quote.email' => 'nullable|email',
+        'quote.phone' => 'nullable',
         'quote.date' => 'required',
         'quote.time' => 'required',
         'quote.place' => 'required',
         'quote.city' => 'sometimes', 
         'quote.project_id' => 'required',
         'quote.message' => 'sometimes',
-        'quote.client_id' => 'sometimes'
+        'quote.client_id' => 'required'
     ];
     public function mount($quote = null, $client = null) {
         if($quote !== null) {
