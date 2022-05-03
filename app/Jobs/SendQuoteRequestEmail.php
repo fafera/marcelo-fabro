@@ -17,7 +17,7 @@ class SendQuoteRequestEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     private $quote;
-    private $adminEmail = "fafa.capellari@gmail.com";
+    private $adminEmail = "marcelofabromusic@gmail.com";
     /**
      * Create a new job instance.
      *
