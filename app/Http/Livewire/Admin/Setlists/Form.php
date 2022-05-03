@@ -113,7 +113,7 @@ class Form extends Component
         $this->songs = [];
         $songbook = $this->quote->project->songbook;
         if($songbook != null) {
-            $songbook->songs->each(function ($item){
+            $songbook->songs->sortBy('title')->each(function ($item){
                 array_push($this->songs, $item);
             });
         }
