@@ -125,7 +125,6 @@ class Form extends Component
     {
         unset($this->results);
         $this->validate();
-        dd("ok");
         $this->saveSetlist();
         if($this->update) {
             session()->flash('message', 'O repertório foi editado com sucesso!');
