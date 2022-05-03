@@ -29,14 +29,16 @@ class Form extends Component
     public $arraySize;
     public $update = false;
     public $custom_moment_check;
-    protected $listeners = ['setCustomSong'];
+    protected $listeners = ['setCustomSong', 'deleteSetlistRegister'];
     public $rules = [
         'search.*.query' => 'required',
         'custom_moment.*' => 'sometimes',
-        'moment_select.*' => 'sometimes'
+        'moment_select.*' => 'required',
+        'data.*' => 'required'  
     ];
     public $messages = [
-        'search.*.query.required' => 'Por favor, preencha todos os momentos.'
+        'search.*.query.required' => 'Por favor, preencha todos os momentos.',
+        'data.*.required' => 'Por favor, preencha todos os momentos'
     ];
     
     public function mount(Quote $quote)
@@ -90,6 +92,7 @@ class Form extends Component
                 $query = $setlistSong->song->fullString;
             }
             $this->data[$setlistSong->moment_id] = [
+                'id' => $setlistSong->id,
                 'song_id' => $id, 
                 'moment_id' => $setlistSong->moment_id, 
                 'custom_song' => $custom
@@ -122,6 +125,7 @@ class Form extends Component
     {
         unset($this->results);
         $this->validate();
+        dd("ok");
         $this->saveSetlist();
         if($this->update) {
             session()->flash('message', 'O repertório foi editado com sucesso!');
@@ -279,6 +283,17 @@ class Form extends Component
     }
     public function addMoment() {
         $this->data[] =  [];
+    }
+    public function deleteMoment($key) {
+        if(isset($this->data[$key]['id'])) {
+            return $this->dispatchBrowserEvent('confirmDelete', ['key' => $key, 'id' => $this->data[$key]['id']]);
+        }
+        unset($this->data[$key]);
+    }
+    public function deleteSetlistRegister($arrayKey, $id) {
+        $register = Setlist::find($id);
+        $register->delete();
+        unset($this->data[$arrayKey]);
     }
     public function render()
     {

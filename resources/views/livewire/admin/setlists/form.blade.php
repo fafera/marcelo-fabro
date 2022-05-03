@@ -2,7 +2,7 @@
     <div class="card-header">
         <h5 class="card-title">Definir repertório</h5>
         <small>Se quiser ter acesso ao repertório completo, <a href="#" wire:click="exportPdf">clique aqui</a> para baixá-lo.</small>
-        @error('search.*')
+        @error('*')
             <div class="alert alert-danger">
                 {{ $message }}
             </div>
@@ -28,6 +28,7 @@
                                 
                                 wire:keydown.escape="resetSearch({{ $key }})" 
                                 >
+                            <button class="btn btn-sm btn-danger float-right" wire:click.prevent="deleteMoment({{$key}})"><i class="nc-icon nc-simple-remove"></i></button>
                         </div>
                     </div>
                 </div>
@@ -106,6 +107,13 @@
         });
         window.addEventListener('appendInput', event => {
             $('#moment-input-container').append(event.detail.view);
+        });
+        window.addEventListener('confirmDelete', event => {
+            if(confirm("Você realmente deseja tirar esta música do repertório?")) {
+                Livewire.emit('deleteSetlistRegister', event.detail.key, event.detail.id);
+            } else {
+                alert('noe');
+            }
         });
         // window.addEventListener('checkCustomMomentCheckbox', event => {
         //     $('.wrapper').html('arara');
