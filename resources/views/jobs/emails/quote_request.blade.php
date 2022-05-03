@@ -1,12 +1,14 @@
 @component('mail::message')
-# Boas Vindas
+# Olá, seu infeliz!
 
-Novo orçamento solicitado no site. 
+Tem orçamento novo no site:
 
-@component('mail::button', ['url' => config('app.url')])
+O cliente {{$quote->name}} solicitou orçamento para {{$quote->date}} às {{$quote->time}} no {{$quote->place}} em {{$quote->city}} com o projeto {{$quote->project->title}}.
+
+@component('mail::button', ['url' => config('app.url').'/admin'])
 Acessar o Site
 @endcomponent
 
-Obrigado,
+Saudações petistas,
 {{ config('app.name') }}
 @endcomponent
