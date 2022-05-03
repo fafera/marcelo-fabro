@@ -28,6 +28,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        //Quote::observe(QuoteObserver::class);
+        Quote::observe(QuoteObserver::class);
     }
 }
