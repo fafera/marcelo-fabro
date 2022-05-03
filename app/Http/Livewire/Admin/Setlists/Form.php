@@ -10,6 +10,7 @@ use App\Models\Moment;
 use App\Models\Setlist;
 use Livewire\Component;
 use App\Models\CustomSong;
+use App\Helpers\TextHelper;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use App\Models\CustomMoment;
@@ -248,14 +249,16 @@ class Form extends Component
     }
     public function updatedSearch($query, $key)
     {
+        
         //$search = Song::where('title', 'like', '%' . $query . '%')->get();
         $search = $this->songs->filter(function($item) use($query){
-            if(Str::contains(strtolower($item['title']), $query)) {
+            if(Str::contains(strtolower(TextHelper::removeAccents($item['title'])), TextHelper::removeAccents($query))) {
                 return $item;
             }
         });
         $key = $this->getKeyValue($key);
         $this->results[$key] = $search;
+        $this->dispatchBrowserEvent('setFocusToSearch', ['input' => 'search-input-'.$key]);
     }
     public function updatedMomentSelect($value, $key) {
         $this->data[$key]['moment_id'] = $value;

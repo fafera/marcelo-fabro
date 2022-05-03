@@ -22,9 +22,9 @@
                                     <option value="{{ $moment->id }}">{{ $moment->title }}</option>
                                 @endforeach
                             </select>
-                            <input type="text" 
+                            <input type="text" id="search-input-{{$key}}"
                                 class="form-control search-input mt-2" placeholder="Digite o nome da música..."
-                                wire:model="search.{{ $key }}.query"
+                                wire:model.debounce.200ms="search.{{ $key }}.query"
                                 
                                 wire:keydown.escape="resetSearch({{ $key }})" 
                                 >
@@ -108,11 +108,15 @@
         window.addEventListener('appendInput', event => {
             $('#moment-input-container').append(event.detail.view);
         });
+        window.addEventListener('setFocusToSearch', event => {
+            console.log(event.detail.input);
+            $('#'+event.detail.input).focus();
+        });
         window.addEventListener('confirmDelete', event => {
             if(confirm("Você realmente deseja tirar esta música do repertório?")) {
                 Livewire.emit('deleteSetlistRegister', event.detail.key, event.detail.id);
             } else {
-                alert('noe');
+                alert('Tá ok, não deleta então!');
             }
         });
         // window.addEventListener('checkCustomMomentCheckbox', event => {
