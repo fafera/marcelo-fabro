@@ -251,9 +251,7 @@ class Form extends Component
     {
         //$search = Song::where('title', 'like', '%' . $query . '%')->get();
         $search = $this->songs->filter(function($item) use($query){
-            print_r($item);
             if(Str::contains(strtolower(TextHelper::removeAccents($item['title'])), TextHelper::removeAccents($query))) {
-                dd('ok');
                 return $item;
             }
         });
