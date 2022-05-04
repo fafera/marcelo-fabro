@@ -249,12 +249,24 @@ class Form extends Component
     }
     public function updatedSearch($query, $key)
     {
-        //$search = Song::where('title', 'like', '%' . $query . '%')->get();
+    
+        // print($query);
+        // dd($this->songs->where('title', 'LIKE', $query));
+        // $search = $this->songs->map(function ($item) use($query) {
+
+        //     if(Str::contains(strtolower(TextHelper::removeAccents($item['title'])), TextHelper::removeAccents($query))) {
+        //         return $item;
+        //     }
+        // });
+        // $search = $search->whereNotNull('title');
+        // dd($search);
         $search = $this->songs->filter(function($item) use($query){
+            dd('filter');
             if(Str::contains(strtolower(TextHelper::removeAccents($item['title'])), TextHelper::removeAccents($query))) {
                 return $item;
             }
         });
+        dd($query);
         $key = $this->getKeyValue($key);
         $this->results[$key] = $search;
         $this->dispatchBrowserEvent('setFocusToSearch', ['input' => 'search-input-'.$key]);
