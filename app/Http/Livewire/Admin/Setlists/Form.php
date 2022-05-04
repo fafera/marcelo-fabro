@@ -251,16 +251,14 @@ class Form extends Component
     {
         //$search = Song::where('title', 'like', '%' . $query . '%')->get();
         $search = $this->songs->filter(function($item) use($query){
+            print_r($item);
             if(Str::contains(strtolower(TextHelper::removeAccents($item['title'])), TextHelper::removeAccents($query))) {
+                dd('ok');
                 return $item;
             }
         });
-        print($key);
         $key = $this->getKeyValue($key);
-        print($key);
         $this->results[$key] = $search;
-        print($this->results[$key]);
-        dd($search);
         $this->dispatchBrowserEvent('setFocusToSearch', ['input' => 'search-input-'.$key]);
     }
     public function updatedMomentSelect($value, $key) {
