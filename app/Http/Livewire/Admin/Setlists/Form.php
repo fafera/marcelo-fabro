@@ -262,8 +262,7 @@ class Form extends Component
         // dd($search);
         print($query);
         $search = $this->songs->filter(function($item) use($query){
-            dd(TextHelper::removeAccents($query));
-            if(Str::contains(strtolower(TextHelper::removeAccents($item['title'])), TextHelper::removeAccents($query))) {
+            if(Str::contains(strtolower(TextHelper::removeAccents($item['title'])), strtolower(TextHelper::removeAccents($query)))) {
                 dd('contains');
                 return $item;
             }
