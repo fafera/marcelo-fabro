@@ -249,7 +249,6 @@ class Form extends Component
     }
     public function updatedSearch($query, $key)
     {
-        dd($query);
         //$search = Song::where('title', 'like', '%' . $query . '%')->get();
         $search = $this->songs->filter(function($item) use($query){
             if(Str::contains(strtolower(TextHelper::removeAccents($item['title'])), TextHelper::removeAccents($query))) {
@@ -257,6 +256,8 @@ class Form extends Component
             }
         });
         $key = $this->getKeyValue($key);
+        print($key);
+        dd($search);
         $this->results[$key] = $search;
         $this->dispatchBrowserEvent('setFocusToSearch', ['input' => 'search-input-'.$key]);
     }
