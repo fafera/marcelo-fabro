@@ -24,7 +24,7 @@
                             </select>
                             <input type="text" id="search-input-{{$key}}"
                                 class="form-control search-input mt-2" placeholder="Digite o nome da música..."
-                                wire:model.debounce.200ms="search.{{ $key }}.query"
+                                wire:model="search.{{ $key }}.query"
                                 
                                 wire:keydown.escape="resetSearch({{ $key }})" 
                                 >
