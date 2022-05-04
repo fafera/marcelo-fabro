@@ -256,9 +256,10 @@ class Form extends Component
             }
         });
         $key = $this->getKeyValue($key);
-        print($key);
-        dd($search);
+        
         $this->results[$key] = $search;
+        print($this->results[$key]);
+        dd($search);
         $this->dispatchBrowserEvent('setFocusToSearch', ['input' => 'search-input-'.$key]);
     }
     public function updatedMomentSelect($value, $key) {
