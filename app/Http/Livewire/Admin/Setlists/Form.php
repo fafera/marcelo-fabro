@@ -28,6 +28,7 @@ class Form extends Component
     public $data = [];
     public $custom_moment;
     public $arraySize;
+    public $copyText;
     public $update = false;
     public $custom_moment_check;
     protected $listeners = ['setCustomSong', 'deleteSetlistRegister'];
@@ -53,6 +54,7 @@ class Form extends Component
             $this->update = true;
             $this->bindData();
             $this->bindCustomMoment();
+            $this->bindText();
         } else {
             $this->data[] = [];
         }
@@ -249,17 +251,6 @@ class Form extends Component
     }
     public function updatedSearch($query, $key)
     {
-    
-        // print($query);
-        // dd($this->songs->where('title', 'LIKE', $query));
-        // $search = $this->songs->map(function ($item) use($query) {
-
-        //     if(Str::contains(strtolower(TextHelper::removeAccents($item['title'])), TextHelper::removeAccents($query))) {
-        //         return $item;
-        //     }
-        // });
-        // $search = $search->whereNotNull('title');
-        // dd($search);
         $search = $this->songs->filter(function($item) use($query){
             if(Str::contains(strtolower(TextHelper::removeAccents($item['full_string'])), strtolower(TextHelper::removeAccents($query)))) {
                 return $item;
@@ -305,6 +296,28 @@ class Form extends Component
         $register = Setlist::find($id);
         $register->delete();
         unset($this->data[$arrayKey]);
+    }
+    // public function copyAsText() {
+    //     $this->dispatchBrowserEvent('copyAsText', ['text' => $this->bindText()]);
+    // }
+    private function bindText() {
+        $text = '*Repertório de '.$this->quote->infoString."*\n\n";
+        foreach($this->quote->setlist as $register) {
+            $text .= "*".$register->moment->title."*";
+            $text .= "\n";
+            if(isset($register->song)) {
+                $text .= $register->song->fullString;
+            } else {
+                $text .= $register->customSong->fullString;
+            }
+            $text .= "\n\n";
+        }
+        if($this->quote->customMoment != null) {
+            $text .= "*".$this->quote->customMoment->title."*\n";
+            $text .= $this->quote->customMoment->description;
+            $text .= "\n";
+        }
+        $this->copyText = $text;
     }
     public function render()
     {

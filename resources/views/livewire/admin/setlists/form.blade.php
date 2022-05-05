@@ -15,7 +15,8 @@
                 <div class="row">
                     <div class="col-md-12 pr-1">
                         <div class="form-group" id="moment-input-container" wire:key="{{time().$key}}">
-                            <label>Selecione o momento que deseja adicionar:</label>
+                            <button class="btn btn-sm btn-danger float-right" wire:click.prevent="deleteMoment({{$key}})"><i class="nc-icon nc-simple-remove"></i></button>
+                            <label>Selecione o momento que deseja adicionar: </label>
                             <select wire:model="moment_select.{{$key}}"  id="moments" class="form-control">
                                 <option>Selecione o momento:</option>
                                 @foreach ($moments as $moment)
@@ -25,10 +26,8 @@
                             <input type="text" id="search-input-{{$key}}"
                                 class="form-control search-input mt-2" placeholder="Digite o nome da música..."
                                 wire:model="search.{{ $key }}.query"
-                                
                                 wire:keydown.escape="resetSearch({{ $key }})" 
                                 >
-                            <button class="btn btn-sm btn-danger float-right" wire:click.prevent="deleteMoment({{$key}})"><i class="nc-icon nc-simple-remove"></i></button>
                         </div>
                     </div>
                 </div>
@@ -52,9 +51,12 @@
                     </div>
                 @endif
             @endforeach     
-            <div class="row">
+            <div class="row mt-3 mb-3">
                 <div class="col-lg-12">
-                    <button type="button" wire:click="addMoment" class="btn btn-primary">Adicionar outro momento</button>
+                    <button type="button" wire:click="addMoment" class="btn-sm btn-primary">Adicionar outro momento</button>
+                    @if($update)
+                        <button type="button" id="btn-copy" data-clipboard-text="{!!$this->copyText!!}" class="btn-sm btn-warning">Enviar repertório como texto</button>
+                    @endif
                 </div>
             </div>
             <div class="row" id="custom_moment_div">
@@ -89,9 +91,27 @@
             </div>
         </form>
         <livewire:admin.songs.custom-song-modal />
+        <div style="display:none;">
+        <span id="copy-text" data-clipboard-text="Teste">Teste</span>
+        </div>
     </div>
 </div>
 @push('scripts')
+<script type="text/javascript">
+    $(function() {
+        var clipboard = new ClipboardJS('#btn-copy');
+        $('#btn-copy').on('click', function (e) {
+            console.log(clipboard);
+            clipboard.on('success', function(e) {
+                console.info('Action:', e.action);
+                console.info('Text:', e.text);
+                console.info('Trigger:', e.trigger);
+                alert('Repertório copiado com sucesso! Agora é só colar onde você quiser enviar.');
+                e.clearSelection();
+            }); 
+        });
+    });
+</script>
     <script type="text/javascript">
         window.addEventListener('showPdf', event => {
             window.open(event.detail.route, '_blank');
@@ -115,13 +135,8 @@
         window.addEventListener('confirmDelete', event => {
             if(confirm("Você realmente deseja tirar esta música do repertório?")) {
                 Livewire.emit('deleteSetlistRegister', event.detail.key, event.detail.id);
-            } else {
-                alert('Tá ok, não deleta então!');
             }
         });
-        // window.addEventListener('checkCustomMomentCheckbox', event => {
-        //     $('.wrapper').html('arara');
-        // })
         $('#custom_moment_checkbox').on('change', function() {
             if(this.checked) {
                 @this.custom_moment_check = true;
@@ -130,11 +145,6 @@
             @this.custom_moment_check = false;
             return $('#custom_moment_container').hide();
         });
-        // $('.search-input').on("blur", function(event) {
-        //     var moment_id = $(this).data('id');
-        //     console.log();
-        //     @this.resetSearch(moment_id);
-        // });
 </script>
- 
+
 @endpush

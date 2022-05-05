@@ -4,6 +4,12 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-grayscale/blob/master/LICENSE)
  */
 
+html,
+body {
+    width: auto !important;
+    overflow-x: hidden !important
+}
+
 #mainNav {
     min-height: 56px;
     background-color: #fff;
@@ -32,7 +38,8 @@
     background-color: transparent;
 }
 
-#mainNav .navbar-nav .nav-item:active, #mainNav .navbar-nav .nav-item:focus {
+#mainNav .navbar-nav .nav-item:active,
+#mainNav .navbar-nav .nav-item:focus {
     outline: none;
     background-color: transparent;
 }
@@ -114,6 +121,7 @@
     background-attachment: scroll;
     background-size: cover;
 }
+
 .masthead-jazz {
     position: relative;
     width: 100%;
@@ -208,7 +216,7 @@
 
 .request-section {
     padding-top: 10rem;
-    padding-bottom:80px;
+    padding-bottom: 80px;
     background: -webkit-gradient(linear, left top, left bottom, from(#161616), color-stop(75%, rgba(22, 22, 22, 0.9)), to(rgba(22, 22, 22, 0.8)));
     background: linear-gradient(to bottom, #161616 0%, rgba(22, 22, 22, 0.9) 75%, rgba(22, 22, 22, 0.8) 100%);
 }
@@ -328,7 +336,8 @@ a {
     color: #64a19d;
 }
 
-a:focus, a:hover {
+a:focus,
+a:hover {
     text-decoration: none;
     color: #3c6360;
 }
@@ -383,6 +392,7 @@ sub {
 }
 
 .feature-left:last-child {}
+
 textarea.form-control {
     height: 90px;
 }
@@ -529,6 +539,7 @@ select option {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
 }
+
 .service-form {
     background-color: #fafbfb;
     border: 1px solid #e4e8ea;
@@ -557,6 +568,7 @@ p.feature {
 p.feature:last-child {
     margin: 0px;
 }
+
 .video-background {
     position: relative;
     background-color: black;
@@ -564,9 +576,9 @@ p.feature:last-child {
     min-height: 25rem;
     width: 100%;
     overflow: hidden;
-  }
-  
-  .video-background video {
+}
+
+.video-background video {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -579,14 +591,14 @@ p.feature:last-child {
     -moz-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
-  }
-  
-  .video-background .container {
+}
+
+.video-background .container {
     position: relative;
     z-index: 2;
-  }
-  
-  .video-background .overlay {
+}
+
+.video-background .overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -595,7 +607,8 @@ p.feature:last-child {
     background-color: black;
     opacity: 0.5;
     z-index: 1;
-  }
-  html {
+}
+
+html {
     scroll-padding-top: 4rem;
-  }
+}

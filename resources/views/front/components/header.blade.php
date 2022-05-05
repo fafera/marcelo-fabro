@@ -21,9 +21,12 @@
             <div class="clearfix"></div>
             <a class="ct-btn-scroll ct-js-btn-scroll js-scroll-trigger" href="#about"><img height="75px" width="75px" alt="Arrow Down Icon" src="{{asset('img/arrow-down.jpg')}}"></a>
         </div>
+        
     </div>
     <!-- The HTML5 video element that will create the background video on the header -->
-    
+    <button id="sound-play" style="z-index:9999; position: absolute; bottom: 50px; right: 0px; width:100px" class="btn btn-success">
+        <i id="sound-play-icon" class="fa fa-play"></i>
+    </button>
   
    
   </header>
