@@ -34,14 +34,19 @@ class Form extends Component
     protected $listeners = ['setCustomSong', 'deleteSetlistRegister'];
     public $rules = [
         'search.*.query' => 'required',
-        'custom_moment.*' => 'sometimes',
+        'custom_moment.title' => 'sometimes',
+        'custom_moment.description' => 'required_with:custom_moment.title',
         'moment_select.*' => 'required',
-        'data.*.song_id' => 'sometimes',
-        'data.*.custom_song' => 'nullable|sometimes'
+        'data.*.moment_id' => 'required',
+        'data.*.song_id' => 'required_unless:data.*.custom_song, 1',
+        'data.*.custom_song' =>'required_if:data.*.song_id, null'
     ];
     public $messages = [
         'search.*.query.required' => 'Por favor, preencha todos os momentos.',
-        'data.*.song_id.required' => 'Por favor, preencha todos as músicas.'
+        'data.*.moment_id.required' => 'Por favor, preencha todos os momentos.',
+        'data.*.song_id.required_unless' => 'Por favor, preencha todos as músicas.',
+        'data.*.custom_song.required_if' => 'Por favor, preencha todos as músicas.',
+        'custom_moment.description.required_with' => 'Por favor, informe a descrição do momento customizado.' 
     ];
     
     public function mount(Quote $quote)
@@ -127,7 +132,6 @@ class Form extends Component
     }
     public function store()
     {
-        
         unset($this->results);
         $this->validate();
         $this->saveSetlist();
