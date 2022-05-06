@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 class Sidebar extends Component
 {
     private $modules;
+    private $beforeSlug = 'informacoes';
+    private $slugPositionPlus = 1;
     //private $slugPosition = 3;
     private $slugPosition = 2;
     public function mount() {
@@ -40,7 +42,9 @@ class Sidebar extends Component
     private function getSlug() {
         $url = parse_url(url()->current());
         $url = explode('/', $url['path']);
-        return $url[$this->slugPosition];
+        $key = array_search($this->beforeSlug, $url);
+        $slugPosition = $key + $this->slugPositionPlus;
+        return $url[$slugPosition];
     }
     private function checkActiveModule() {
         $modules = $this->modules->map(function ($item, $key) {
