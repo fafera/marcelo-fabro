@@ -36,11 +36,12 @@ class Form extends Component
         'search.*.query' => 'required',
         'custom_moment.*' => 'sometimes',
         'moment_select.*' => 'required',
-        'data.*' => 'required'  
+        'data.*.song_id' => 'sometimes',
+        'data.*.custom_song' => 'nullable|sometimes'
     ];
     public $messages = [
         'search.*.query.required' => 'Por favor, preencha todos os momentos.',
-        'data.*.required' => 'Por favor, preencha todos os momentos'
+        'data.*.song_id.required' => 'Por favor, preencha todos as músicas.'
     ];
     
     public function mount(Quote $quote)
@@ -126,6 +127,7 @@ class Form extends Component
     }
     public function store()
     {
+        
         unset($this->results);
         $this->validate();
         $this->saveSetlist();
@@ -202,11 +204,16 @@ class Form extends Component
     private function checkAndRemoveCustomSong($data) {
         $setlistSong = Setlist::where('quote_id', $this->quote->id,)->where('moment_id', $data['moment_id'])->first();
         if($setlistSong != null ) {
-            $customSong = CustomSong::find($setlistSong->custom_song_id) ;
+            $this->deleteCustomSong($setlistSong);
             $setlistSong->delete();
-            $customSong->delete();
-            
         }
+    }
+    private function deleteCustomSong($setlistSong) {
+        if(isset($setlistSong->custom_song_id)) { 
+            $song = CustomSong::find($setlistSong->custom_song_id);
+            return $song->delete();
+        }
+            return  null;
     }
     public function updateOrCreateSong($storeData) {
         $setlist = Setlist::where('quote_id', $storeData['quote_id'])->where('moment_id', $storeData['moment_id'])->first();
