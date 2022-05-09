@@ -15,13 +15,13 @@
             position: absolute;
             left: 10px;
             bottom: 0px;
-            max-width: 150px;
+            text-align: center;
         }
         .signature-right {
             position: absolute;
             right: 10px;
             bottom: 0px;
-            max-width: 150px;
+            text-align: center;
         }
         .date-span {
             position: absolute;
@@ -113,9 +113,30 @@
         jurídicos e legais efeitos.
     </p>
     {{-- <div class="page_break"></div> --}}
-    <span class="date-span"> {{$signature_date}}</span>
-    <img class="signature" src="{{asset('img/assinatura-left.png')}}"/>
-    <img class="signature-right" src="{{asset('img/assinatura-right.png')}}"/>
+    <div class="signature">
+        <span>_________________________________</span>
+        <br>
+        <span>Contratada</span>
+        <br>
+        <br>
+        <span>_________________________________</span>
+        <br>
+        <span>Contratante</span>
+    </div>
+    <div class="signature-right">
+        <span>_________________________________</span>
+        <br>
+        <span>Testemunha</span>
+
+        <br>
+        <br>
+        <span>_________________________________</span>
+        
+        <br>
+        <span>Testemunha</span>
+    </div>
+    {{-- <img class="signature" src="{{asset('img/assinatura-left.png')}}"/> --}}
+    {{-- <img class="signature-right" src="{{asset('img/assinatura-right.png')}}"/> --}}
     
 </body>
 </html>

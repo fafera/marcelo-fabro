@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{{ $title }}</title>
+    <style>
+        span.nbsp {
+            display: inline-block;
+            width: 70px;
+        }
+        p {text-align: justify;}
+        .page_break { page-break-before: always; }
+        .signature {
+            position: absolute;
+            left: 10px;
+            bottom: 0px;
+            text-align: center;
+        }
+        .signature-right {
+            position: absolute;
+            right: 10px;
+            bottom: 0px;
+            text-align: center;
+        }
+        .date-span {
+            position: absolute;
+            right: 10px;
+            bottom: 200px;
+            
+        }
+    </style>
+</head>
+<body style="padding: 30px">
+    
+    {{-- <div class="page_break"></div> --}}
+    <span class="date-span"> {{$signature_date}}</span>
+    <div class="signature">
+        <span>_________________________________</span>
+        <br>
+        <span>Contratada</span>
+        <br>
+        <br>
+        <span>_________________________________</span>
+        <br>
+        <span>Contratante</span>
+    </div>
+    <div class="signature-right">
+        <span>_________________________________</span>
+        <br>
+        <span>Testemunha</span>
+
+        <br>
+        <br>
+        <span>_________________________________</span>
+        
+        <br>
+        <span>Testemunha</span>
+    </div>
+    
+</body>
+</html>
