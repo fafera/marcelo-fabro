@@ -113,6 +113,7 @@
         jurídicos e legais efeitos.
     </p>
     {{-- <div class="page_break"></div> --}}
+    <span class="date-span"> {{$signature_date}}</span>
     <div class="signature">
         <span>_________________________________</span>
         <br>
