@@ -16,7 +16,9 @@ class QuoteObserver
      */
     public function created(Quote $quote)
     {
-        SendQuoteRequestEmail::dispatch($quote);
+        if($quote['client_id'] === null) {
+            SendQuoteRequestEmail::dispatch($quote);
+        }
     }
 
     /**
