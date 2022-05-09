@@ -114,7 +114,8 @@
 </script>
     <script type="text/javascript">
         window.addEventListener('showPdf', event => {
-            window.open(event.detail.route, '_blank');
+            //window.open(event.detail.route, '_blank');
+            window.location.href = event.detail.route;
         });
         window.addEventListener('showCustomSongModal', event => {
             $("#custom-song-modal").modal('show');
